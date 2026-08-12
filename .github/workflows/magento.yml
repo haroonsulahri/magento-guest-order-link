@@ -47,7 +47,7 @@ jobs:
 
     steps:
       - name: Check out module
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: module
 

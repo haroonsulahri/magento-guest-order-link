@@ -18,7 +18,7 @@ jobs:
         php-version: ['8.1', '8.2', '8.3']
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -41,7 +41,7 @@ jobs:
         run: bash bin/build-release.sh 0.0.0-ci dist
 
       - name: Upload verified archive
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: link-guest-order-to-customer-ci
           path: dist/*.zip
