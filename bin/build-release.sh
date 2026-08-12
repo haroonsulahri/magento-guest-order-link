@@ -56,7 +56,7 @@ tar -C "$source_dir" -cf - \
 find "$stage_dir/package/LinkGuestOrderToCustomer" -type d -exec chmod 0755 {} +
 find "$stage_dir/package/LinkGuestOrderToCustomer" -type f -exec chmod 0644 {} +
 
-php "$source_dir/dev/check-release.php" "$stage_dir/package/LinkGuestOrderToCustomer"
+php "$default_source_dir/dev/check-release.php" "$stage_dir/package/LinkGuestOrderToCustomer"
 composer validate "$stage_dir/package/LinkGuestOrderToCustomer/composer.json" --strict --no-check-publish
 
 rm -f -- "$archive"
@@ -81,6 +81,6 @@ if find "$stage_dir/extracted" -type f ! -perm -u=r -print -quit | grep -q .; th
     echo "Archive contains a file without owner read permission." >&2
     exit 1
 fi
-php "$source_dir/dev/check-release.php" "$stage_dir/extracted/LinkGuestOrderToCustomer"
+php "$default_source_dir/dev/check-release.php" "$stage_dir/extracted/LinkGuestOrderToCustomer"
 
 printf '%s\n' "$archive"
