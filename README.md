@@ -19,7 +19,7 @@ A free, open-source Magento extension built and maintained by [Haroone](https://
 Install the latest stable release from [Packagist](https://packagist.org/packages/haroone/module-link-guest-order-to-customer):
 
 ```bash
-composer require haroone/module-link-guest-order-to-customer:^2.0
+composer require haroone/module-link-guest-order-to-customer:^1.0
 
 bin/magento module:enable Haroone_LinkGuestOrderToCustomer
 bin/magento setup:upgrade
@@ -46,9 +46,9 @@ bin/magento cache:clean
 
 No database tables are added. Reindexing and static-content deployment are not required for this module.
 
-### Upgrading from 1.x
+### Migrating from the legacy package
 
-Version 2.0.0 is a breaking technical rename. Follow the complete [1.x to 2.x migration guide](UPGRADING.md) so Magento never loads both module identities during the upgrade. The rename does not change sales or customer data.
+The renamed package starts at version 1.0.1. If `haroone/module-guest-order-link` or `Haroone_GuestOrderLink` is already installed, follow the complete [legacy-package migration guide](UPGRADING.md) so Magento never loads both module identities during the change. The rename does not change sales or customer data.
 
 ## Why this module exists
 

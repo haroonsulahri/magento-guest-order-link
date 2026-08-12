@@ -4,7 +4,7 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
-## [2.0.0] - 2026-08-13
+## [1.0.1] - 2026-08-13
 
 ### Changed
 
@@ -19,8 +19,8 @@ All notable changes to this project are documented in this file.
 
 ### Breaking
 
-- The 1.x Composer package and Magento module must be disabled and removed before 2.0.0 is installed.
-- Integrations referencing 1.x PHP classes, ACL resources or Admin routes must use the new technical identifiers.
+- The legacy Composer package and Magento module must be disabled and removed before the renamed package is installed.
+- Integrations referencing legacy PHP classes, ACL resources or Admin routes must use the new technical identifiers.
 
 ### Preserved
 
