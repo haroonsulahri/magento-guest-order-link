@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title description">
+    <title id="title">Haroone logo badge</title>
+    <desc id="description">A black rounded badge containing a white rounded square and the black Haroone three-block mark.</desc>
+    <defs>
+        <mask id="block-separation" maskUnits="userSpaceOnUse" x="0" y="0" width="124" height="150">
+            <rect width="124" height="150" fill="#FFFFFF"/>
+            <rect x="33" y="33" width="59" height="78" rx="17" fill="#000000"/>
+        </mask>
+    </defs>
+
+    <rect width="64" height="64" rx="18" fill="#05070A"/>
+    <rect x="17" y="16" width="34" height="33" rx="8" fill="#FFFFFF"/>
+
+    <g transform="translate(23.3 21) scale(0.14)" fill="#05070A">
+        <g mask="url(#block-separation)">
+            <rect x="0" y="58" width="53" height="92" rx="16"/>
+            <rect x="75" y="0" width="49" height="92" rx="15"/>
+        </g>
+        <rect x="39" y="39" width="47" height="66" rx="11"/>
+    </g>
+</svg>

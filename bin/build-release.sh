@@ -15,7 +15,6 @@ fi
 
 source_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 output_dir="${2:-$source_dir/dist}"
-archive="$output_dir/haroone-module-guest-order-link-$version.zip"
 stage_dir="$(mktemp -d)"
 
 cleanup() {
@@ -24,6 +23,8 @@ cleanup() {
 trap cleanup EXIT
 
 mkdir -p -- "$output_dir" "$stage_dir/package/GuestOrderLink"
+output_dir="$(cd -- "$output_dir" && pwd)"
+archive="$output_dir/haroone-module-guest-order-link-$version.zip"
 
 tar -C "$source_dir" -cf - \
     --exclude='./.git' \
@@ -37,6 +38,9 @@ tar -C "$source_dir" -cf - \
     --exclude='./bin' \
     --exclude='./dev' \
     --exclude='./dist' \
+    --exclude='./docs/images/generated-banners' \
+    --exclude='./docs/images/generated-concepts' \
+    --exclude='./tmp' \
     --exclude='./vendor' \
     --exclude='./auth.json' \
     --exclude='./composer.lock' \

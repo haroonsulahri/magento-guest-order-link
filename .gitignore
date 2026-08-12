@@ -8,3 +8,6 @@
 /.idea/
 /.vscode/
 *.log
+/docs/images/generated-banners/
+/docs/images/generated-concepts/
+/tmp/

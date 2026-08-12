@@ -18,6 +18,10 @@
         }
     ],
     "homepage": "https://haroone.com",
+    "support": {
+        "issues": "https://github.com/haroonsulahri/magento-guest-order-link/issues",
+        "source": "https://github.com/haroonsulahri/magento-guest-order-link"
+    },
     "require": {
         "php": "^8.1",
         "magento/framework": "^103.0.4",

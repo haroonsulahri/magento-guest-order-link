@@ -16,7 +16,9 @@ All notable changes to this project are documented in this file.
 - Private order-history auditing using the trusted Admin display name.
 - Unit and Magento integration tests.
 - Linux-safe release builder and dependency-free package CI.
+- Canonical repository banner, extension icon and Haroone brand assets.
 - Public documentation for compatibility, validation, privacy, security, contribution and release handling.
+- Relative and absolute release output paths with explicit exclusion of local design drafts and temporary files.
 
 ### Security
 
