@@ -3,11 +3,52 @@
 # Haroone Guest Order Link
 
 [![Package quality](https://github.com/haroonsulahri/magento-guest-order-link/actions/workflows/quality.yml/badge.svg)](https://github.com/haroonsulahri/magento-guest-order-link/actions/workflows/quality.yml)
+[![Packagist](https://img.shields.io/badge/Packagist-haroone%2Fmodule--guest--order--link-f28d1a.svg)](https://packagist.org/packages/haroone/module-guest-order-link)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2563eb.svg)](LICENSE.txt)
 
 Connect an eligible guest order to the matching customer account from Magento Admin.
 
-> **Release status:** The source is public and ready for evaluation. A stable tag, GitHub Release and Packagist package have not been published yet, so use the manual installation method for now.
+> **Release status:** The package is available on [Packagist](https://packagist.org/packages/haroone/module-guest-order-link) as `dev-main`. A stable version has not been tagged yet, so production projects should wait for `v1.0.0`.
+
+## Installation
+
+### Composer installation
+
+The package currently provides the `dev-main` development version:
+
+```bash
+composer require haroone/module-guest-order-link:dev-main
+
+bin/magento module:enable Haroone_GuestOrderLink
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento cache:clean
+```
+
+After the stable `v1.0.0` release is published, the recommended production command will be:
+
+```bash
+composer require haroone/module-guest-order-link:^1.0
+```
+
+### Manual installation
+
+Download or clone the repository into:
+
+```text
+app/code/Haroone/GuestOrderLink
+```
+
+Then run from the Magento root:
+
+```bash
+bin/magento module:enable Haroone_GuestOrderLink
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+bin/magento cache:clean
+```
+
+No database tables are added. Reindexing and static-content deployment are not required for this module.
 
 ## Why this module exists
 
@@ -53,33 +94,6 @@ After linking, storefront visibility still follows Magento's normal order-status
 The current package constraints begin with Magento 2.4.4-era component versions. A full public Magento compatibility matrix has not yet been completed. Test the module against the exact Magento and PHP combination you run before using it in production.
 
 The module has been exercised on a local Magento 2.4.6-p12 installation. That local installation runs PHP 8.3 even though Magento 2.4.6-p12 declares PHP 8.1 or 8.2, so it is runtime evidence only and is not presented as an officially supported compatibility combination.
-
-## Installation
-
-Until the first stable release is published, copy or clone this repository into:
-
-```text
-app/code/Haroone/GuestOrderLink
-```
-
-Then run from the Magento root:
-
-```bash
-bin/magento module:enable Haroone_GuestOrderLink
-bin/magento setup:upgrade
-bin/magento setup:di:compile
-bin/magento cache:clean
-```
-
-No database tables are added. The module does not require reindexing or static-content deployment.
-
-Once the package is published on Packagist, Composer installation will use:
-
-```bash
-composer require haroone/module-guest-order-link
-```
-
-Do not use that command until the package page and stable version are visible on Packagist.
 
 ## Admin usage
 
