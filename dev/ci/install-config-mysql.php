@@ -12,7 +12,7 @@ return [
     'search-engine' => 'opensearch',
     'opensearch-host' => '127.0.0.1',
     'opensearch-port' => 9200,
-    'opensearch-index-prefix' => 'guest_order_link_integration',
+    'opensearch-index-prefix' => 'link_guest_order_to_customer_integration',
     'admin-user' => 'integration-admin',
     'admin-password' => 'Integration123!',
     'admin-email' => 'admin@example.com',

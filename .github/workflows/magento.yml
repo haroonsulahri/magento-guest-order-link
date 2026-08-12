@@ -77,23 +77,23 @@ jobs:
 
       - name: Install module source
         run: |
-          mkdir -p "$RUNNER_TEMP/magento/app/code/Haroone/GuestOrderLink"
+          mkdir -p "$RUNNER_TEMP/magento/app/code/Haroone/LinkGuestOrderToCustomer"
           rsync -a --delete --exclude=.git "$GITHUB_WORKSPACE/module/" \
-            "$RUNNER_TEMP/magento/app/code/Haroone/GuestOrderLink/"
+            "$RUNNER_TEMP/magento/app/code/Haroone/LinkGuestOrderToCustomer/"
 
       - name: Run unit tests
         working-directory: ${{ runner.temp }}/magento
-        run: vendor/bin/phpunit -c app/code/Haroone/GuestOrderLink/phpunit.xml.dist
+        run: vendor/bin/phpunit -c app/code/Haroone/LinkGuestOrderToCustomer/phpunit.xml.dist
 
       - name: Run Magento coding standard
         working-directory: ${{ runner.temp }}/magento
-        run: vendor/bin/phpcs --standard=app/code/Haroone/GuestOrderLink/phpcs.xml.dist
+        run: vendor/bin/phpcs --standard=app/code/Haroone/LinkGuestOrderToCustomer/phpcs.xml.dist
 
       - name: Run PHPStan
         working-directory: ${{ runner.temp }}/magento
         run: >-
           vendor/bin/phpstan analyse
-          -c app/code/Haroone/GuestOrderLink/phpstan.neon.dist
+          -c app/code/Haroone/LinkGuestOrderToCustomer/phpstan.neon.dist
           --autoload-file=vendor/autoload.php
           --no-progress
 
@@ -101,7 +101,7 @@ jobs:
         working-directory: ${{ runner.temp }}/magento
         run: >-
           php
-          -d auto_prepend_file=app/code/Haroone/GuestOrderLink/dev/ci/phpstan-runtime.php
+          -d auto_prepend_file=app/code/Haroone/LinkGuestOrderToCustomer/dev/ci/phpstan-runtime.php
           bin/magento setup:di:compile
 
       - name: Configure Magento integration tests
@@ -113,4 +113,4 @@ jobs:
         working-directory: ${{ runner.temp }}/magento/dev/tests/integration
         run: >-
           ../../../vendor/bin/phpunit -c phpunit.xml.dist
-          ../../../app/code/Haroone/GuestOrderLink/Test/Integration
+          ../../../app/code/Haroone/LinkGuestOrderToCustomer/Test/Integration

@@ -43,6 +43,6 @@ jobs:
       - name: Upload verified archive
         uses: actions/upload-artifact@v4
         with:
-          name: guest-order-link-ci
+          name: link-guest-order-to-customer-ci
           path: dist/*.zip
           if-no-files-found: error

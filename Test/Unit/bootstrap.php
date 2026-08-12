@@ -6,7 +6,7 @@ $moduleRoot = dirname(__DIR__, 2);
 
 spl_autoload_register(
     static function (string $class) use ($moduleRoot): void {
-        $prefix = 'Haroone\\GuestOrderLink\\';
+        $prefix = 'Haroone\\LinkGuestOrderToCustomer\\';
         if (!str_starts_with($class, $prefix)) {
             return;
         }
@@ -25,7 +25,7 @@ spl_autoload_register(
 
 if (!class_exists(\Magento\User\Model\UserFactory::class)) {
     class_alias(
-        \Haroone\GuestOrderLink\Test\Unit\Stub\AdminUserFactory::class,
+        \Haroone\LinkGuestOrderToCustomer\Test\Unit\Stub\AdminUserFactory::class,
         \Magento\User\Model\UserFactory::class
     );
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Model;
+namespace Haroone\LinkGuestOrderToCustomer\Model;
 
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;

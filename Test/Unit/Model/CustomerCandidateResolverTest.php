@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Test\Unit\Model;
+namespace Haroone\LinkGuestOrderToCustomer\Test\Unit\Model;
 
-use Haroone\GuestOrderLink\Model\CustomerCandidateResolver;
+use Haroone\LinkGuestOrderToCustomer\Model\CustomerCandidateResolver;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Model\Config\Share;

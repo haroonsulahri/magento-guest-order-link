@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Haroone\GuestOrderLink\Api\GuestOrderLinkerInterface;
+use Haroone\LinkGuestOrderToCustomer\Api\LinkGuestOrderToCustomerInterface;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Api\Data\CustomerInterfaceFactory;
 use Magento\Framework\App\Bootstrap;
@@ -38,7 +38,7 @@ $connection = $resource->getConnection();
 $initialTransactionLevel = $connection->getTransactionLevel();
 $orderId = null;
 $customerId = null;
-$email = 'guest-order-link-' . bin2hex(random_bytes(8)) . '@example.com';
+$email = 'link-guest-order-to-customer-' . bin2hex(random_bytes(8)) . '@example.com';
 $incrementId = 'GOL' . date('YmdHis') . random_int(1000, 9999);
 
 try {
@@ -77,7 +77,7 @@ try {
     $payment->setMethod('checkmo');
 
     $item = $objectManager->get(OrderItemFactory::class)->create();
-    $item->setSku('guest-order-link-smoke')
+    $item->setSku('link-guest-order-to-customer-smoke')
         ->setName('Generated smoke-test item')
         ->setProductType('simple')
         ->setQtyOrdered(1)
@@ -115,7 +115,7 @@ try {
         'base_grand_total' => (string)$order->getBaseGrandTotal(),
     ];
 
-    $objectManager->get(GuestOrderLinkerInterface::class)->link($orderId);
+    $objectManager->get(LinkGuestOrderToCustomerInterface::class)->link($orderId);
 
     $orderTable = $resource->getTableName('sales_order');
     $gridTable = $resource->getTableName('sales_order_grid');

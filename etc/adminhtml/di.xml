@@ -2,8 +2,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Sales\Block\Adminhtml\Order\View">
-        <plugin name="haroone_guest_order_link_button"
-                type="Haroone\GuestOrderLink\Plugin\Adminhtml\Order\ViewButtonPlugin"
+        <plugin name="haroone_link_guest_order_to_customer_button"
+                type="Haroone\LinkGuestOrderToCustomer\Plugin\Adminhtml\Order\LinkGuestOrderToCustomerButtonPlugin"
                 sortOrder="100"/>
     </type>
 </config>

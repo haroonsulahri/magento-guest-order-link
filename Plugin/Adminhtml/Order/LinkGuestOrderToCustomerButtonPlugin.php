@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Plugin\Adminhtml\Order;
+namespace Haroone\LinkGuestOrderToCustomer\Plugin\Adminhtml\Order;
 
-use Haroone\GuestOrderLink\Model\CustomerCandidateResolver;
+use Haroone\LinkGuestOrderToCustomer\Model\CustomerCandidateResolver;
 use Magento\Framework\AuthorizationInterface;
 use Magento\Framework\Escaper;
 use Magento\Framework\Exception\LocalizedException;
@@ -14,7 +14,7 @@ use Magento\Sales\Block\Adminhtml\Order\View;
 /**
  * Adds the linking entry point to eligible Admin order pages.
  */
-class ViewButtonPlugin
+class LinkGuestOrderToCustomerButtonPlugin
 {
     /**
      * @param AuthorizationInterface $authorization
@@ -37,7 +37,7 @@ class ViewButtonPlugin
      */
     public function beforeSetLayout(View $subject, LayoutInterface $layout): array
     {
-        if (!$this->authorization->isAllowed('Haroone_GuestOrderLink::link')) {
+        if (!$this->authorization->isAllowed('Haroone_LinkGuestOrderToCustomer::link')) {
             return [$layout];
         }
 
@@ -55,12 +55,12 @@ class ViewButtonPlugin
             return [$layout];
         }
 
-        $url = $subject->getUrl('haroone_guestorderlink/order/confirm');
+        $url = $subject->getUrl('haroone_linkguestordertocustomer/order/confirm');
         $subject->addButton(
-            'haroone_guest_order_link',
+            'haroone_link_guest_order_to_customer',
             [
-                'id' => 'haroone-guest-order-link',
-                'label' => __('Link to Customer Account'),
+                'id' => 'haroone-link-guest-order-to-customer',
+                'label' => __('Link Guest Order to Customer'),
                 'class' => 'link',
                 'onclick' => "setLocation('" . $this->escaper->escapeJs($url) . "')",
             ],

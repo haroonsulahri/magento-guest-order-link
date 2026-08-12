@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Block\Adminhtml\Order;
+namespace Haroone\LinkGuestOrderToCustomer\Block\Adminhtml\Order;
 
 use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
@@ -89,7 +89,7 @@ class Confirm extends Template
     public function getLinkUrl(): string
     {
         return $this->getUrl(
-            'haroone_guestorderlink/order/link',
+            'haroone_linkguestordertocustomer/order/link',
             ['order_id' => (int)$this->getOrder()->getEntityId()]
         );
     }

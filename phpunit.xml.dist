@@ -7,7 +7,7 @@
          failOnRisky="true"
          failOnWarning="true">
     <testsuites>
-        <testsuite name="Haroone Guest Order Link Unit Tests">
+        <testsuite name="Haroone Link Guest Order to Customer Unit Tests">
             <directory suffix="Test.php">Test/Unit</directory>
         </testsuite>
     </testsuites>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Haroone Guest Order Link">
+<ruleset name="Haroone Link Guest Order to Customer">
     <description>Magento coding-standard rules for the module.</description>
     <arg name="basepath" value="."/>
     <arg name="colors"/>

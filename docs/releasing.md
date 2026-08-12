@@ -14,7 +14,7 @@
 Build on Linux or WSL so the ZIP uses portable path separators and permissions:
 
 ```bash
-./bin/build-release.sh 1.0.0 /path/to/output
+./bin/build-release.sh 2.0.0 /path/to/output
 ```
 
 The builder excludes repository-only development files, normalizes directory and file permissions, verifies the ZIP and extracts it again for a portability and privacy check.
@@ -36,14 +36,15 @@ Before tagging or uploading:
 
 Packagist reads versions from Git branches and tags. Do not add a `version` field to `composer.json`.
 
-For the first stable release:
+For the breaking 2.0.0 rename release:
 
-1. Create an annotated `v1.0.0` tag on the exact verified commit.
-2. Push the commit and tag to GitHub.
-3. Optionally create a GitHub Release and attach the verified manual-install ZIP.
-4. Submit `https://github.com/haroonsulahri/magento-guest-order-link` to Packagist.
-5. Enable or confirm automatic GitHub updates on the Packagist package page.
-6. Confirm Packagist exposes `1.0.0` and test `composer require haroone/module-guest-order-link:^1.0` in a disposable Magento installation.
+1. Confirm the existing `v1.0.0` tag and release remain unchanged.
+2. Create an annotated `v2.0.0` tag on the exact verified commit.
+3. Push the commit and tag to GitHub.
+4. Create a GitHub Release and attach the verified manual-install ZIP.
+5. Submit `https://github.com/haroonsulahri/magento-link-guest-order-to-customer` to Packagist as `haroone/module-link-guest-order-to-customer`.
+6. Mark the superseded 1.x Packagist package abandoned in favor of the new package only after the new stable version resolves.
+7. Confirm Packagist exposes `2.0.0` and test `composer require haroone/module-link-guest-order-to-customer:^2.0` in a disposable Magento installation.
 
 A GitHub Release is useful for people downloading the module manually, but Packagist requires the Git tag rather than a GitHub Release. Do not push a tag created before the release commit was verified.
 

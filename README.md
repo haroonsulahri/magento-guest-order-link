@@ -1,9 +1,9 @@
-![Haroone Guest Order Link for Magento](docs/images/guest-order-link-banner.png)
+![Link Guest Order to Customer for Magento 2](docs/images/link-guest-order-to-customer-banner.png)
 
-# Haroone Guest Order Link
+# Link Guest Order to Customer for Magento 2
 
-[![Package quality](https://github.com/haroonsulahri/magento-guest-order-link/actions/workflows/quality.yml/badge.svg)](https://github.com/haroonsulahri/magento-guest-order-link/actions/workflows/quality.yml)
-[![Packagist](https://img.shields.io/badge/Packagist-haroone%2Fmodule--guest--order--link-f28d1a.svg)](https://packagist.org/packages/haroone/module-guest-order-link)
+[![Package quality](https://github.com/haroonsulahri/magento-link-guest-order-to-customer/actions/workflows/quality.yml/badge.svg)](https://github.com/haroonsulahri/magento-link-guest-order-to-customer/actions/workflows/quality.yml)
+[![Packagist](https://img.shields.io/badge/Packagist-haroone%2Fmodule--link--guest--order--to--customer-f28d1a.svg)](https://packagist.org/packages/haroone/module-link-guest-order-to-customer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2563eb.svg)](LICENSE.txt)
 
 Connect an eligible guest order to the matching customer account from Magento Admin.
@@ -16,12 +16,12 @@ A free, open-source Magento extension built and maintained by [Haroone](https://
 
 ### Composer installation
 
-Install the latest stable release from [Packagist](https://packagist.org/packages/haroone/module-guest-order-link):
+Install the latest stable release from [Packagist](https://packagist.org/packages/haroone/module-link-guest-order-to-customer):
 
 ```bash
-composer require haroone/module-guest-order-link:^1.0
+composer require haroone/module-link-guest-order-to-customer:^2.0
 
-bin/magento module:enable Haroone_GuestOrderLink
+bin/magento module:enable Haroone_LinkGuestOrderToCustomer
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento cache:clean
@@ -32,19 +32,23 @@ bin/magento cache:clean
 Download or clone the repository into:
 
 ```text
-app/code/Haroone/GuestOrderLink
+app/code/Haroone/LinkGuestOrderToCustomer
 ```
 
 Then run from the Magento root:
 
 ```bash
-bin/magento module:enable Haroone_GuestOrderLink
+bin/magento module:enable Haroone_LinkGuestOrderToCustomer
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento cache:clean
 ```
 
 No database tables are added. Reindexing and static-content deployment are not required for this module.
+
+### Upgrading from 1.x
+
+Version 2.0.0 is a breaking technical rename. Follow the complete [1.x to 2.x migration guide](UPGRADING.md) so Magento never loads both module identities during the upgrade. The rename does not change sales or customer data.
 
 ## Why this module exists
 
@@ -54,7 +58,7 @@ This module gives an authorized Admin user a controlled way to link one guest or
 
 ## What it does
 
-- Adds **Link to Customer Account** immediately before **Edit** on an eligible Admin order.
+- Adds **Link Guest Order to Customer** immediately before **Edit** on an eligible Admin order.
 - Shows the action only when an exact account-email match exists in the applicable customer-sharing scope.
 - Displays a confirmation page before anything is changed.
 - Revalidates the order and customer immediately before saving.
@@ -85,7 +89,7 @@ After linking, storefront visibility still follows Magento's normal order-status
 
 - Magento Open Source or Adobe Commerce with component versions allowed by [`composer.json`](composer.json)
 - PHP 8.1 or newer, using a PHP version supported by the installed Magento release
-- An Admin role with `Haroone_GuestOrderLink::link`
+- An Admin role with `Haroone_LinkGuestOrderToCustomer::link`
 
 The package constraints begin with Magento 2.4.4-era component versions and continue through compatible newer releases. Composer checks these requirements during installation and rejects incompatible Magento or PHP combinations.
 
@@ -93,15 +97,15 @@ The package constraints begin with Magento 2.4.4-era component versions and cont
 
 1. Open **Sales > Orders**.
 2. Open an unassigned guest order.
-3. Click **Link to Customer Account** next to **Edit**.
+3. Click **Link Guest Order to Customer** next to **Edit**.
 4. Check the order and matched account on the confirmation page.
-5. Click **Link Order to Customer**.
+5. Click **Link Guest Order to Customer**.
 6. Confirm the order is assigned to the customer. If the order status is storefront-visible, confirm it also appears under **My Account > My Orders**.
 
 Grant access under:
 
 ```text
-Sales > Operations > Orders > Actions > Link Guest Orders to Customer Accounts
+Sales > Operations > Orders > Actions > Link Guest Order to Customer
 ```
 
 ## Development and verification
@@ -109,7 +113,7 @@ Sales > Operations > Orders > Actions > Link Guest Orders to Customer Accounts
 Run the unit suite from a Magento root with development dependencies:
 
 ```bash
-vendor/bin/phpunit -c app/code/Haroone/GuestOrderLink/phpunit.xml.dist
+vendor/bin/phpunit -c app/code/Haroone/LinkGuestOrderToCustomer/phpunit.xml.dist
 ```
 
 The repository's package-quality workflow validates Composer metadata, PHP syntax, XML, privacy checks and the Linux release archive. The separate Magento workflow installs a clean Magento instance and runs unit tests, coding standards, PHPStan, DI compilation and integration tests when `COMPOSER_AUTH` is configured.
@@ -133,9 +137,9 @@ Report security issues privately as described in [SECURITY.md](SECURITY.md). Do 
 
 [Haroone](https://haroone.com/) is an ecommerce engineering company led by Magento expertise. The team works on custom modules, checkout and Admin workflows, migrations and upgrades, integrations, performance, technical SEO and ongoing production support.
 
-Use [GitHub Issues](https://github.com/haroonsulahri/magento-guest-order-link/issues) for reproducible product bugs and feature requests. If the problem belongs to one store rather than the open-source package, contact Haroone privately with the store context.
+Use [GitHub Issues](https://github.com/haroonsulahri/magento-link-guest-order-to-customer/issues) for reproducible product bugs and feature requests. If the problem belongs to one store rather than the open-source package, contact Haroone privately with the store context.
 
-- [Guest Order Link on Haroone.com](https://haroone.com/extensions/magento-2-guest-order-link)
+- [Link Guest Order to Customer on Haroone.com](https://haroone.com/extensions/magento-2-link-guest-order-to-customer)
 - [Magento engineering services](https://haroone.com/services/magento)
 - [Other free Magento extensions](https://haroone.com/extensions)
 - [Private support and project enquiries](https://haroone.com/contact)

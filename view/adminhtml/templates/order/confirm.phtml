@@ -1,5 +1,5 @@
 <?php
-/** @var \Haroone\GuestOrderLink\Block\Adminhtml\Order\Confirm $block */
+/** @var \Haroone\LinkGuestOrderToCustomer\Block\Adminhtml\Order\Confirm $block */
 /** @var \Magento\Framework\Escaper $escaper */
 
 $order = $block->getOrder();
@@ -7,7 +7,7 @@ $customer = $block->getCustomer();
 ?>
 <section class="admin__page-section">
     <div class="admin__page-section-title">
-        <span class="title"><?= $escaper->escapeHtml(__('Confirm Customer Assignment')) ?></span>
+        <span class="title"><?= $escaper->escapeHtml(__('Confirm Guest Order to Customer Link')) ?></span>
     </div>
     <div class="admin__page-section-content">
         <p>
@@ -69,7 +69,7 @@ $customer = $block->getCustomer();
            name="order_id"
            value="<?= $escaper->escapeHtmlAttr((string)$order->getEntityId()) ?>"/>
     <button type="submit" class="action-primary scalable">
-        <span><?= $escaper->escapeHtml(__('Link Order to Customer')) ?></span>
+        <span><?= $escaper->escapeHtml(__('Link Guest Order to Customer')) ?></span>
     </button>
     <a class="action-secondary" href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>">
         <span><?= $escaper->escapeHtml(__('Cancel')) ?></span>

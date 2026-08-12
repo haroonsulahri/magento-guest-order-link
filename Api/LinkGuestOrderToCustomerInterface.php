@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Api;
+namespace Haroone\LinkGuestOrderToCustomer\Api;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -13,7 +13,7 @@ use Magento\Sales\Api\Data\OrderInterface;
  *
  * @api
  */
-interface GuestOrderLinkerInterface
+interface LinkGuestOrderToCustomerInterface
 {
     /**
      * Link the guest order to the matching customer account.

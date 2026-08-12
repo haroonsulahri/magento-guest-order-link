@@ -8,8 +8,8 @@
                     <resource id="Magento_Sales::sales_operation">
                         <resource id="Magento_Sales::sales_order">
                             <resource id="Magento_Sales::actions">
-                                <resource id="Haroone_GuestOrderLink::link"
-                                          title="Link Guest Orders to Customer Accounts"
+                                <resource id="Haroone_LinkGuestOrderToCustomer::link"
+                                          title="Link Guest Order to Customer"
                                           sortOrder="160"/>
                             </resource>
                         </resource>

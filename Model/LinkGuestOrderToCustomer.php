@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Model;
+namespace Haroone\LinkGuestOrderToCustomer\Model;
 
-use Haroone\GuestOrderLink\Api\GuestOrderLinkerInterface;
+use Haroone\LinkGuestOrderToCustomer\Api\LinkGuestOrderToCustomerInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Lock\LockManagerInterface;
 use Magento\Sales\Api\Data\OrderInterface;
@@ -20,9 +20,9 @@ use Throwable;
 /**
  * Coordinates a validated and audited guest order assignment.
  */
-class GuestOrderLinker implements GuestOrderLinkerInterface
+class LinkGuestOrderToCustomer implements LinkGuestOrderToCustomerInterface
 {
-    private const LOCK_PREFIX = 'haroone_guest_order_link_';
+    private const LOCK_PREFIX = 'haroone_link_guest_order_to_customer_';
     private const LOCK_TIMEOUT_SECONDS = 5;
 
     /**

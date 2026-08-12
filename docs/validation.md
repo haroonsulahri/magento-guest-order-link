@@ -13,28 +13,28 @@ Must remain unchanged: order state, status, totals, payment, items, billing and 
 Run from the Magento root:
 
 ```bash
-find app/code/Haroone/GuestOrderLink -name '*.php' -print0 \
+find app/code/Haroone/LinkGuestOrderToCustomer -name '*.php' -print0 \
   | xargs -0 -n1 php -l
 
-vendor/bin/phpunit -c app/code/Haroone/GuestOrderLink/phpunit.xml.dist
-vendor/bin/phpcs --standard=app/code/Haroone/GuestOrderLink/phpcs.xml.dist
-vendor/bin/phpstan analyse -c app/code/Haroone/GuestOrderLink/phpstan.neon.dist
-composer validate app/code/Haroone/GuestOrderLink/composer.json --strict --no-check-publish
-php app/code/Haroone/GuestOrderLink/dev/check-release.php \
-  app/code/Haroone/GuestOrderLink
+vendor/bin/phpunit -c app/code/Haroone/LinkGuestOrderToCustomer/phpunit.xml.dist
+vendor/bin/phpcs --standard=app/code/Haroone/LinkGuestOrderToCustomer/phpcs.xml.dist
+vendor/bin/phpstan analyse -c app/code/Haroone/LinkGuestOrderToCustomer/phpstan.neon.dist
+composer validate app/code/Haroone/LinkGuestOrderToCustomer/composer.json --strict --no-check-publish
+php app/code/Haroone/LinkGuestOrderToCustomer/dev/check-release.php \
+  app/code/Haroone/LinkGuestOrderToCustomer
 bin/magento setup:di:compile
 ```
 
 Run the database-backed test separately:
 
 ```bash
-php app/code/Haroone/GuestOrderLink/dev/check-integration-config.php \
+php app/code/Haroone/LinkGuestOrderToCustomer/dev/check-integration-config.php \
   dev/tests/integration/etc/install-config-mysql.php.dist \
   app/etc/env.php
 
 cd dev/tests/integration
 ../../../vendor/bin/phpunit -c phpunit.xml.dist \
-  ../../../app/code/Haroone/GuestOrderLink/Test/Integration
+  ../../../app/code/Haroone/LinkGuestOrderToCustomer/Test/Integration
 ```
 
 Magento integration tests install and clean their own database. Verify the integration configuration before running them and never use a database containing business data.
@@ -42,7 +42,7 @@ Magento integration tests install and clean their own database. Verify the integ
 When the integration framework cannot be installed, run the transactional runtime smoke test from the Magento root. It creates generated records inside a database transaction, verifies persistence and rolls the transaction back:
 
 ```bash
-php app/code/Haroone/GuestOrderLink/dev/runtime-smoke.php
+php app/code/Haroone/LinkGuestOrderToCustomer/dev/runtime-smoke.php
 ```
 
 The command must finish with both the runtime-check and rollback-verification messages.

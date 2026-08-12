@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Controller\Adminhtml\Order;
+namespace Haroone\LinkGuestOrderToCustomer\Controller\Adminhtml\Order;
 
-use Haroone\GuestOrderLink\Block\Adminhtml\Order\Confirm as ConfirmBlock;
-use Haroone\GuestOrderLink\Model\CustomerCandidateResolver;
+use Haroone\LinkGuestOrderToCustomer\Block\Adminhtml\Order\Confirm as ConfirmBlock;
+use Haroone\LinkGuestOrderToCustomer\Model\CustomerCandidateResolver;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Page as BackendResultPage;
@@ -22,7 +22,7 @@ use Throwable;
  */
 class Confirm extends Action
 {
-    public const ADMIN_RESOURCE = 'Haroone_GuestOrderLink::link';
+    public const ADMIN_RESOURCE = 'Haroone_LinkGuestOrderToCustomer::link';
 
     /**
      * @param Context $context
@@ -60,12 +60,12 @@ class Confirm extends Action
             /** @var BackendResultPage $resultPage */
             $resultPage = $this->resultPageFactory->create();
             $resultPage->setActiveMenu('Magento_Sales::sales_order');
-            $resultPage->getConfig()->getTitle()->prepend((string)__('Link Guest Order'));
+            $resultPage->getConfig()->getTitle()->prepend((string)__('Link Guest Order to Customer'));
             $resultPage->getConfig()->getTitle()->prepend(
                 (string)__('Order #%1', $order->getIncrementId())
             );
 
-            $block = $resultPage->getLayout()->getBlock('haroone.guestorderlink.confirm');
+            $block = $resultPage->getLayout()->getBlock('haroone.linkguestordertocustomer.confirm');
             if (!$block instanceof ConfirmBlock) {
                 throw new LocalizedException(__('The confirmation page could not be prepared.'));
             }

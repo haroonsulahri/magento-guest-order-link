@@ -1,6 +1,6 @@
 {
-    "name": "haroone/module-guest-order-link",
-    "description": "Safely link an existing Magento guest order to the matching registered customer from Admin.",
+    "name": "haroone/module-link-guest-order-to-customer",
+    "description": "Safely link an eligible Magento guest order to the matching registered customer account from Admin.",
     "type": "magento2-module",
     "license": "MIT",
     "keywords": [
@@ -21,8 +21,8 @@
     ],
     "homepage": "https://haroone.com",
     "support": {
-        "issues": "https://github.com/haroonsulahri/magento-guest-order-link/issues",
-        "source": "https://github.com/haroonsulahri/magento-guest-order-link"
+        "issues": "https://github.com/haroonsulahri/magento-link-guest-order-to-customer/issues",
+        "source": "https://github.com/haroonsulahri/magento-link-guest-order-to-customer"
     },
     "require": {
         "php": "^8.1",
@@ -32,6 +32,9 @@
         "magento/module-sales": "^103.0.4",
         "magento/module-store": "^101.1.4",
         "magento/module-user": "^101.2.4"
+    },
+    "conflict": {
+        "haroone/module-guest-order-link": "*"
     },
     "require-dev": {
         "magento/magento-coding-standard": "^39.0",
@@ -43,12 +46,12 @@
             "registration.php"
         ],
         "psr-4": {
-            "Haroone\\GuestOrderLink\\": ""
+            "Haroone\\LinkGuestOrderToCustomer\\": ""
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Haroone\\GuestOrderLink\\Test\\": "Test/"
+            "Haroone\\LinkGuestOrderToCustomer\\Test\\": "Test/"
         }
     },
     "scripts": {

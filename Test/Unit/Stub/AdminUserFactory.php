@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Test\Unit\Stub;
+namespace Haroone\LinkGuestOrderToCustomer\Test\Unit\Stub;
 
 use LogicException;
 use Magento\User\Model\User;

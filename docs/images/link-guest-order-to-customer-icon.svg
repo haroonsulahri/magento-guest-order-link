@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title description">
-    <title id="title">Guest Order Link</title>
+    <title id="title">Link Guest Order to Customer</title>
     <desc id="description">A guest order document linked to a customer account above a single curved assignment path.</desc>
     <defs>
         <linearGradient id="link-gradient" x1="216" y1="0" x2="360" y2="0" gradientUnits="userSpaceOnUse">

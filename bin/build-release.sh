@@ -22,9 +22,9 @@ cleanup() {
 }
 trap cleanup EXIT
 
-mkdir -p -- "$output_dir" "$stage_dir/package/GuestOrderLink"
+mkdir -p -- "$output_dir" "$stage_dir/package/LinkGuestOrderToCustomer"
 output_dir="$(cd -- "$output_dir" && pwd)"
-archive="$output_dir/haroone-module-guest-order-link-$version.zip"
+archive="$output_dir/haroone-module-link-guest-order-to-customer-$version.zip"
 
 tar -C "$source_dir" -cf - \
     --exclude='./.git' \
@@ -49,18 +49,18 @@ tar -C "$source_dir" -cf - \
     --exclude='./phpcs.xml.dist' \
     --exclude='./phpstan.neon.dist' \
     --exclude='./phpunit.xml.dist' \
-    . | tar -C "$stage_dir/package/GuestOrderLink" -xf -
+    . | tar -C "$stage_dir/package/LinkGuestOrderToCustomer" -xf -
 
-find "$stage_dir/package/GuestOrderLink" -type d -exec chmod 0755 {} +
-find "$stage_dir/package/GuestOrderLink" -type f -exec chmod 0644 {} +
+find "$stage_dir/package/LinkGuestOrderToCustomer" -type d -exec chmod 0755 {} +
+find "$stage_dir/package/LinkGuestOrderToCustomer" -type f -exec chmod 0644 {} +
 
-php "$source_dir/dev/check-release.php" "$stage_dir/package/GuestOrderLink"
-composer validate "$stage_dir/package/GuestOrderLink/composer.json" --strict --no-check-publish
+php "$source_dir/dev/check-release.php" "$stage_dir/package/LinkGuestOrderToCustomer"
+composer validate "$stage_dir/package/LinkGuestOrderToCustomer/composer.json" --strict --no-check-publish
 
 rm -f -- "$archive"
 (
     cd "$stage_dir/package"
-    zip -X -q -r "$archive" GuestOrderLink
+    zip -X -q -r "$archive" LinkGuestOrderToCustomer
 )
 
 unzip -t "$archive" >/dev/null
@@ -79,6 +79,6 @@ if find "$stage_dir/extracted" -type f ! -perm -u=r -print -quit | grep -q .; th
     echo "Archive contains a file without owner read permission." >&2
     exit 1
 fi
-php "$source_dir/dev/check-release.php" "$stage_dir/extracted/GuestOrderLink"
+php "$source_dir/dev/check-release.php" "$stage_dir/extracted/LinkGuestOrderToCustomer"
 
 printf '%s\n' "$archive"

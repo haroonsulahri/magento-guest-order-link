@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Test\Integration\Model;
+namespace Haroone\LinkGuestOrderToCustomer\Test\Integration\Model;
 
-use Haroone\GuestOrderLink\Api\GuestOrderLinkerInterface;
+use Haroone\LinkGuestOrderToCustomer\Api\LinkGuestOrderToCustomerInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory as OrderCollectionFactory;
@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
  * @magentoAppIsolation enabled
  * @magentoDbIsolation enabled
  */
-class GuestOrderLinkerTest extends TestCase
+class LinkGuestOrderToCustomerTest extends TestCase
 {
     /**
      * @magentoDataFixture Magento/Customer/_files/customer.php
@@ -45,7 +45,7 @@ class GuestOrderLinkerTest extends TestCase
             'shipping_address_id' => (int)$order->getShippingAddress()->getEntityId(),
         ];
 
-        $linker = $objectManager->get(GuestOrderLinkerInterface::class);
+        $linker = $objectManager->get(LinkGuestOrderToCustomerInterface::class);
         $linker->link((int)$order->getEntityId());
 
         $orderRepository = $objectManager->get(OrderRepositoryInterface::class);

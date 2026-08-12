@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Test\Unit\Plugin\Adminhtml\Order;
+namespace Haroone\LinkGuestOrderToCustomer\Test\Unit\Plugin\Adminhtml\Order;
 
-use Haroone\GuestOrderLink\Model\CustomerCandidateResolver;
-use Haroone\GuestOrderLink\Plugin\Adminhtml\Order\ViewButtonPlugin;
+use Haroone\LinkGuestOrderToCustomer\Model\CustomerCandidateResolver;
+use Haroone\LinkGuestOrderToCustomer\Plugin\Adminhtml\Order\LinkGuestOrderToCustomerButtonPlugin;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\AuthorizationInterface;
 use Magento\Framework\Escaper;
@@ -16,19 +16,19 @@ use Magento\Sales\Model\Order;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class ViewButtonPluginTest extends TestCase
+class LinkGuestOrderToCustomerButtonPluginTest extends TestCase
 {
     private AuthorizationInterface&MockObject $authorization;
     private Escaper&MockObject $escaper;
     private CustomerCandidateResolver&MockObject $customerCandidateResolver;
-    private ViewButtonPlugin $plugin;
+    private LinkGuestOrderToCustomerButtonPlugin $plugin;
 
     protected function setUp(): void
     {
         $this->authorization = $this->createMock(AuthorizationInterface::class);
         $this->escaper = $this->createMock(Escaper::class);
         $this->customerCandidateResolver = $this->createMock(CustomerCandidateResolver::class);
-        $this->plugin = new ViewButtonPlugin(
+        $this->plugin = new LinkGuestOrderToCustomerButtonPlugin(
             $this->authorization,
             $this->escaper,
             $this->customerCandidateResolver
@@ -40,7 +40,7 @@ class ViewButtonPluginTest extends TestCase
         $layout = $this->createMock(LayoutInterface::class);
         $view = $this->createMock(View::class);
         $order = $this->createMock(Order::class);
-        $this->authorization->method('isAllowed')->with('Haroone_GuestOrderLink::link')->willReturn(true);
+        $this->authorization->method('isAllowed')->with('Haroone_LinkGuestOrderToCustomer::link')->willReturn(true);
         $order->method('getEntityId')->willReturn(12);
         $order->method('getCustomerId')->willReturn(null);
         $order->method('getCustomerIsGuest')->willReturn(true);
@@ -49,15 +49,15 @@ class ViewButtonPluginTest extends TestCase
             ->with($order)
             ->willReturn($this->createMock(CustomerInterface::class));
         $view->method('getOrder')->willReturn($order);
-        $view->method('getUrl')->with('haroone_guestorderlink/order/confirm')->willReturn('https://admin/link');
+        $view->method('getUrl')->with('haroone_linkguestordertocustomer/order/confirm')->willReturn('https://admin/link');
         $this->escaper->method('escapeJs')->with('https://admin/link')->willReturn('https://admin/link');
         $view->expects(self::once())
             ->method('addButton')
             ->with(
-                'haroone_guest_order_link',
+                'haroone_link_guest_order_to_customer',
                 self::callback(static function (array $data): bool {
-                    return $data['id'] === 'haroone-guest-order-link'
-                        && (string)$data['label'] === 'Link to Customer Account'
+                    return $data['id'] === 'haroone-link-guest-order-to-customer'
+                        && (string)$data['label'] === 'Link Guest Order to Customer'
                         && $data['onclick'] === "setLocation('https://admin/link')";
                 }),
                 1,

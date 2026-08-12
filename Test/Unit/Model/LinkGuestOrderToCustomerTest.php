@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Test\Unit\Model;
+namespace Haroone\LinkGuestOrderToCustomer\Test\Unit\Model;
 
-use Haroone\GuestOrderLink\Model\CustomerCandidateResolver;
-use Haroone\GuestOrderLink\Model\GuestOrderLinker;
+use Haroone\LinkGuestOrderToCustomer\Model\CustomerCandidateResolver;
+use Haroone\LinkGuestOrderToCustomer\Model\LinkGuestOrderToCustomer;
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Lock\LockManagerInterface;
@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use RuntimeException;
 
-class GuestOrderLinkerTest extends TestCase
+class LinkGuestOrderToCustomerTest extends TestCase
 {
     private OrderRepositoryInterface&MockObject $orderRepository;
     private CustomerCandidateResolver&MockObject $candidateResolver;
@@ -33,7 +33,7 @@ class GuestOrderLinkerTest extends TestCase
     private AdminUser&MockObject $adminUser;
     private LockManagerInterface&MockObject $lockManager;
     private LoggerInterface&MockObject $logger;
-    private GuestOrderLinker $linker;
+    private LinkGuestOrderToCustomer $linker;
 
     protected function setUp(): void
     {
@@ -48,7 +48,7 @@ class GuestOrderLinkerTest extends TestCase
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->adminUserFactory->method('create')->willReturn($this->adminUser);
         $this->adminUserResource->method('load')->willReturnSelf();
-        $this->linker = new GuestOrderLinker(
+        $this->linker = new LinkGuestOrderToCustomer(
             $this->orderRepository,
             $this->candidateResolver,
             $this->customerAssignment,
@@ -74,11 +74,11 @@ class GuestOrderLinkerTest extends TestCase
 
         $this->lockManager->expects(self::once())
             ->method('lock')
-            ->with('haroone_guest_order_link_12', 5)
+            ->with('haroone_link_guest_order_to_customer_12', 5)
             ->willReturn(true);
         $this->lockManager->expects(self::once())
             ->method('unlock')
-            ->with('haroone_guest_order_link_12')
+            ->with('haroone_link_guest_order_to_customer_12')
             ->willReturn(true);
         $this->orderRepository->expects(self::once())->method('get')->with(12)->willReturn($order);
         $this->candidateResolver->expects(self::once())->method('resolve')->with($order)->willReturn($customer);

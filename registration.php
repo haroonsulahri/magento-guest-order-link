@@ -6,6 +6,6 @@ use Magento\Framework\Component\ComponentRegistrar;
 
 ComponentRegistrar::register(
     ComponentRegistrar::MODULE,
-    'Haroone_GuestOrderLink',
+    'Haroone_LinkGuestOrderToCustomer',
     __DIR__
 );

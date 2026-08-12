@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Haroone\GuestOrderLink\Controller\Adminhtml\Order;
+namespace Haroone\LinkGuestOrderToCustomer\Controller\Adminhtml\Order;
 
-use Haroone\GuestOrderLink\Api\GuestOrderLinkerInterface;
+use Haroone\LinkGuestOrderToCustomer\Api\LinkGuestOrderToCustomerInterface;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\Auth\Session as AuthSession;
@@ -19,17 +19,17 @@ use Throwable;
  */
 class Link extends Action implements HttpPostActionInterface
 {
-    public const ADMIN_RESOURCE = 'Haroone_GuestOrderLink::link';
+    public const ADMIN_RESOURCE = 'Haroone_LinkGuestOrderToCustomer::link';
 
     /**
      * @param Context $context
-     * @param GuestOrderLinkerInterface $guestOrderLinker
+     * @param LinkGuestOrderToCustomerInterface $linkGuestOrderToCustomer
      * @param AuthSession $authSession
      * @param LoggerInterface $logger
      */
     public function __construct(
         Context $context,
-        private readonly GuestOrderLinkerInterface $guestOrderLinker,
+        private readonly LinkGuestOrderToCustomerInterface $linkGuestOrderToCustomer,
         private readonly AuthSession $authSession,
         private readonly LoggerInterface $logger
     ) {
@@ -52,7 +52,7 @@ class Link extends Action implements HttpPostActionInterface
         try {
             $adminUser = $this->authSession->getUser();
             $adminUserId = $adminUser ? (int)$adminUser->getId() : null;
-            $order = $this->guestOrderLinker->link($orderId, $adminUserId);
+            $order = $this->linkGuestOrderToCustomer->link($orderId, $adminUserId);
             $this->messageManager->addSuccessMessage(
                 (string)__(
                     'Order #%1 has been linked to the customer account %2.',

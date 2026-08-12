@@ -4,6 +4,28 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-08-13
+
+### Changed
+
+- Renamed the product to **Link Guest Order to Customer for Magento 2**.
+- Renamed the Composer package to `haroone/module-link-guest-order-to-customer`.
+- Renamed the Magento module to `Haroone_LinkGuestOrderToCustomer`.
+- Renamed the PHP namespace to `Haroone\LinkGuestOrderToCustomer`.
+- Renamed the Admin route, ACL resource, button ID, source directory and release archive consistently.
+- Changed the Admin action label to **Link Guest Order to Customer**.
+- Added a Composer conflict and a documented migration path from the 1.x package.
+- Replaced the repository banner and renamed the extension artwork files.
+
+### Breaking
+
+- The 1.x Composer package and Magento module must be disabled and removed before 2.0.0 is installed.
+- Integrations referencing 1.x PHP classes, ACL resources or Admin routes must use the new technical identifiers.
+
+### Preserved
+
+- Order eligibility, exact-email matching, website scope, confirmation, locking, assignment, audit history and sales-grid refresh behavior are unchanged.
+
 ## [1.0.0] - 2026-08-12
 
 ### Added
