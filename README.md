@@ -8,6 +8,10 @@
 
 Connect an eligible guest order to the matching customer account from Magento Admin.
 
+A free, open-source Magento extension built and maintained by [Haroone](https://haroone.com/).
+
+[Install](#installation) · [How it works](#what-it-does) · [Admin usage](#admin-usage) · [Support](#support-and-magento-services) · [Contribute](CONTRIBUTING.md)
+
 ## Installation
 
 ### Composer installation
@@ -125,6 +129,18 @@ The module sends no data outside Magento. Its private order-history comment cont
 
 Report security issues privately as described in [SECURITY.md](SECURITY.md). Do not put customer data, credentials, order exports or vulnerabilities in a public issue.
 
+## Support and Magento services
+
+[Haroone](https://haroone.com/) is an ecommerce engineering company led by Magento expertise. The team works on custom modules, checkout and Admin workflows, migrations and upgrades, integrations, performance, technical SEO and ongoing production support.
+
+Use [GitHub Issues](https://github.com/haroonsulahri/magento-guest-order-link/issues) for reproducible product bugs and feature requests. If the problem belongs to one store rather than the open-source package, contact Haroone privately with the store context.
+
+- [Guest Order Link on Haroone.com](https://haroone.com/extensions/magento-2-guest-order-link)
+- [Magento engineering services](https://haroone.com/services/magento)
+- [Other free Magento extensions](https://haroone.com/extensions)
+- [Private support and project enquiries](https://haroone.com/contact)
+- [Contribution guidelines](CONTRIBUTING.md)
+
 ## License
 
-Released under the [MIT License](LICENSE.txt).
+Released under the [MIT License](LICENSE.txt). Copyright © 2026 Haroone.com.
