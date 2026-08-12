@@ -1,0 +1,116 @@
+name: Magento verification
+
+on:
+  workflow_dispatch:
+    inputs:
+      magento-version:
+        description: Magento Open Source version
+        required: true
+        default: 2.4.7-p10
+      php-version:
+        description: PHP version supported by the selected Magento release
+        required: true
+        default: '8.3'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: integration-test-only
+          MYSQL_DATABASE: magento_integration_tests
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -pintegration-test-only"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=30
+      opensearch:
+        image: opensearchproject/opensearch:2
+        env:
+          discovery.type: single-node
+          plugins.security.disabled: 'true'
+          OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd="curl --fail http://127.0.0.1:9200/_cluster/health"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=30
+
+    steps:
+      - name: Check out module
+        uses: actions/checkout@v4
+        with:
+          path: module
+
+      - name: Require Magento repository credentials
+        env:
+          MAGENTO_AUTH: ${{ secrets.COMPOSER_AUTH }}
+        run: test -n "$MAGENTO_AUTH"
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs['php-version'] }}
+          extensions: bcmath, curl, dom, gd, intl, mbstring, pdo_mysql, soap, sockets, sodium, xsl, zip
+          tools: composer:v2
+          coverage: none
+
+      - name: Install Magento Open Source
+        env:
+          COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+          MAGENTO_VERSION: ${{ inputs['magento-version'] }}
+        run: >-
+          composer create-project
+          --no-interaction
+          --repository-url=https://repo.magento.com/
+          magento/project-community-edition:${MAGENTO_VERSION}
+          "$RUNNER_TEMP/magento"
+
+      - name: Install module source
+        run: |
+          mkdir -p "$RUNNER_TEMP/magento/app/code/Haroone/GuestOrderLink"
+          rsync -a --delete --exclude=.git "$GITHUB_WORKSPACE/module/" \
+            "$RUNNER_TEMP/magento/app/code/Haroone/GuestOrderLink/"
+
+      - name: Run unit tests
+        working-directory: ${{ runner.temp }}/magento
+        run: vendor/bin/phpunit -c app/code/Haroone/GuestOrderLink/phpunit.xml.dist
+
+      - name: Run Magento coding standard
+        working-directory: ${{ runner.temp }}/magento
+        run: vendor/bin/phpcs --standard=app/code/Haroone/GuestOrderLink/phpcs.xml.dist
+
+      - name: Run PHPStan
+        working-directory: ${{ runner.temp }}/magento
+        run: >-
+          vendor/bin/phpstan analyse
+          -c app/code/Haroone/GuestOrderLink/phpstan.neon.dist
+          --autoload-file=vendor/autoload.php
+          --no-progress
+
+      - name: Compile dependency injection
+        working-directory: ${{ runner.temp }}/magento
+        run: >-
+          php
+          -d auto_prepend_file=app/code/Haroone/GuestOrderLink/dev/ci/phpstan-runtime.php
+          bin/magento setup:di:compile
+
+      - name: Configure Magento integration tests
+        run: >-
+          cp "$GITHUB_WORKSPACE/module/dev/ci/install-config-mysql.php"
+          "$RUNNER_TEMP/magento/dev/tests/integration/etc/install-config-mysql.php"
+
+      - name: Run Magento integration test
+        working-directory: ${{ runner.temp }}/magento/dev/tests/integration
+        run: >-
+          ../../../vendor/bin/phpunit -c phpunit.xml.dist
+          ../../../app/code/Haroone/GuestOrderLink/Test/Integration

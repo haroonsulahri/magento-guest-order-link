@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ruleset name="Haroone Guest Order Link">
+    <description>Magento coding-standard rules for the module.</description>
+    <arg name="basepath" value="."/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php,phtml"/>
+    <arg name="warning-severity" value="0"/>
+    <file>Api</file>
+    <file>Block</file>
+    <file>Controller</file>
+    <file>Model</file>
+    <file>Plugin</file>
+    <file>Test</file>
+    <file>view</file>
+    <file>registration.php</file>
+    <rule ref="Magento2"/>
+</ruleset>

@@ -1,0 +1,47 @@
+name: Bug report
+description: Report a reproducible non-security defect.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include customer data, credentials, order exports or security vulnerabilities.
+  - type: input
+    id: module-version
+    attributes:
+      label: Module version
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: magento-version
+    attributes:
+      label: Magento version
+      placeholder: 2.4.x
+    validations:
+      required: true
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Use generated or anonymized test data only.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true

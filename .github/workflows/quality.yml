@@ -1,0 +1,44 @@
+name: Package quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: dom, simplexml
+          tools: composer:v2
+          coverage: none
+
+      - name: Validate Composer metadata
+        run: composer validate composer.json --strict --no-check-publish
+
+      - name: Lint PHP files
+        run: find . -path './.git' -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Check privacy, secrets and XML
+        run: php dev/check-release.php .
+
+      - name: Build and verify Linux release archive
+        run: bash bin/build-release.sh 0.0.0-ci dist
+
+      - name: Upload verified archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: guest-order-link-ci
+          path: dist/*.zip
+          if-no-files-found: error

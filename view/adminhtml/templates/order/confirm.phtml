@@ -1,0 +1,77 @@
+<?php
+/** @var \Haroone\GuestOrderLink\Block\Adminhtml\Order\Confirm $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$order = $block->getOrder();
+$customer = $block->getCustomer();
+?>
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $escaper->escapeHtml(__('Confirm Customer Assignment')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <p>
+            <?= $escaper->escapeHtml(
+                __('Review the order and customer account before completing this permanent assignment.')
+            ) ?>
+        </p>
+
+        <table class="admin__table-secondary">
+            <tbody>
+                <tr>
+                    <th><?= $escaper->escapeHtml(__('Order')) ?></th>
+                    <td>#<?= $escaper->escapeHtml((string)$order->getIncrementId()) ?></td>
+                </tr>
+                <tr>
+                    <th><?= $escaper->escapeHtml(__('Order Email')) ?></th>
+                    <td><?= $escaper->escapeHtml((string)$order->getCustomerEmail()) ?></td>
+                </tr>
+                <tr>
+                    <th><?= $escaper->escapeHtml(__('Customer Name')) ?></th>
+                    <td><?= $escaper->escapeHtml($block->getCustomerName()) ?></td>
+                </tr>
+                <tr>
+                    <th><?= $escaper->escapeHtml(__('Customer Email')) ?></th>
+                    <td><?= $escaper->escapeHtml((string)$customer->getEmail()) ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="message message-warning warning">
+    <div>
+        <?= $escaper->escapeHtml(
+            __(
+                'This action links the order to the customer account. It does not change the order status, totals, payment, addresses, quote, or storefront status configuration.'
+            )
+        ) ?>
+    </div>
+</div>
+
+<?php if (!$block->isOrderStatusVisibleOnFront()): ?>
+    <div class="message message-warning warning">
+        <div>
+            <?= $escaper->escapeHtml(
+                __(
+                    'The current order status is not configured as visible on the storefront. The assignment can succeed, but the order will remain hidden until that global status configuration is changed separately.'
+                )
+            ) ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<form method="post" action="<?= $escaper->escapeUrl($block->getLinkUrl()) ?>">
+    <input type="hidden"
+           name="form_key"
+           value="<?= $escaper->escapeHtmlAttr($block->getFormKey()) ?>"/>
+    <input type="hidden"
+           name="order_id"
+           value="<?= $escaper->escapeHtmlAttr((string)$order->getEntityId()) ?>"/>
+    <button type="submit" class="action-primary scalable">
+        <span><?= $escaper->escapeHtml(__('Link Order to Customer')) ?></span>
+    </button>
+    <a class="action-secondary" href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>">
+        <span><?= $escaper->escapeHtml(__('Cancel')) ?></span>
+    </a>
+</form>

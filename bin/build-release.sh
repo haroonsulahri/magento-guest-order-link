@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ $# -lt 1 || $# -gt 2 ]]; then
+    echo "Usage: $0 <version> [output-directory]" >&2
+    exit 2
+fi
+
+version="$1"
+if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+    echo "Version must be a semantic version such as 1.0.0." >&2
+    exit 2
+fi
+
+source_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+output_dir="${2:-$source_dir/dist}"
+archive="$output_dir/haroone-module-guest-order-link-$version.zip"
+stage_dir="$(mktemp -d)"
+
+cleanup() {
+    rm -rf -- "$stage_dir"
+}
+trap cleanup EXIT
+
+mkdir -p -- "$output_dir" "$stage_dir/package/GuestOrderLink"
+
+tar -C "$source_dir" -cf - \
+    --exclude='./.git' \
+    --exclude='./.github' \
+    --exclude='./.gitattributes' \
+    --exclude='./.gitignore' \
+    --exclude='./.phpstan.cache' \
+    --exclude='./.phpunit.cache' \
+    --exclude='./.phpunit.result.cache' \
+    --exclude='./Test' \
+    --exclude='./bin' \
+    --exclude='./dev' \
+    --exclude='./dist' \
+    --exclude='./vendor' \
+    --exclude='./auth.json' \
+    --exclude='./composer.lock' \
+    --exclude='./CONTRIBUTING.md' \
+    --exclude='./phpcs.xml.dist' \
+    --exclude='./phpstan.neon.dist' \
+    --exclude='./phpunit.xml.dist' \
+    . | tar -C "$stage_dir/package/GuestOrderLink" -xf -
+
+find "$stage_dir/package/GuestOrderLink" -type d -exec chmod 0755 {} +
+find "$stage_dir/package/GuestOrderLink" -type f -exec chmod 0644 {} +
+
+php "$source_dir/dev/check-release.php" "$stage_dir/package/GuestOrderLink"
+composer validate "$stage_dir/package/GuestOrderLink/composer.json" --strict --no-check-publish
+
+rm -f -- "$archive"
+(
+    cd "$stage_dir/package"
+    zip -X -q -r "$archive" GuestOrderLink
+)
+
+unzip -t "$archive" >/dev/null
+if zipinfo -1 "$archive" | grep -q '\\'; then
+    echo "Archive contains a Windows path separator." >&2
+    exit 1
+fi
+
+mkdir -p "$stage_dir/extracted"
+unzip -q "$archive" -d "$stage_dir/extracted"
+if find "$stage_dir/extracted" -type d ! -perm -u=x -print -quit | grep -q .; then
+    echo "Archive contains a directory without owner traverse permission." >&2
+    exit 1
+fi
+if find "$stage_dir/extracted" -type f ! -perm -u=r -print -quit | grep -q .; then
+    echo "Archive contains a file without owner read permission." >&2
+    exit 1
+fi
+php "$source_dir/dev/check-release.php" "$stage_dir/extracted/GuestOrderLink"
+
+printf '%s\n' "$archive"

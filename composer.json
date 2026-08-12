@@ -1,0 +1,59 @@
+{
+    "name": "haroone/module-guest-order-link",
+    "description": "Safely link an existing Magento guest order to the matching registered customer from Admin.",
+    "type": "magento2-module",
+    "license": "MIT",
+    "keywords": [
+        "magento2",
+        "magento2-extension",
+        "guest-order",
+        "customer-account",
+        "order-management",
+        "admin"
+    ],
+    "authors": [
+        {
+            "name": "Haroone",
+            "homepage": "https://haroone.com"
+        }
+    ],
+    "homepage": "https://haroone.com",
+    "require": {
+        "php": "^8.1",
+        "magento/framework": "^103.0.4",
+        "magento/module-backend": "^102.0.4",
+        "magento/module-customer": "^103.0.4",
+        "magento/module-sales": "^103.0.4",
+        "magento/module-store": "^101.1.4",
+        "magento/module-user": "^101.2.4"
+    },
+    "require-dev": {
+        "magento/magento-coding-standard": "^39.0",
+        "phpstan/phpstan": "^1.12",
+        "phpunit/phpunit": "^9.5.24"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Haroone\\GuestOrderLink\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Haroone\\GuestOrderLink\\Test\\": "Test/"
+        }
+    },
+    "scripts": {
+        "test:unit": "phpunit -c phpunit.xml.dist",
+        "test:phpcs": "phpcs --standard=phpcs.xml.dist",
+        "test:phpstan": "phpstan analyse -c phpstan.neon.dist"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    }
+}

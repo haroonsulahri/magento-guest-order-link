@@ -1,0 +1,10 @@
+/.phpunit.result.cache
+/.phpunit.cache/
+/.phpstan.cache/
+/dist/
+/vendor/
+/auth.json
+/composer.lock
+/.idea/
+/.vscode/
+*.log
