@@ -36,7 +36,6 @@ jobs:
         env:
           discovery.type: single-node
           DISABLE_SECURITY_PLUGIN: 'true'
-          plugins.security.disabled: 'true'
           OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
         ports:
           - 9200:9200
