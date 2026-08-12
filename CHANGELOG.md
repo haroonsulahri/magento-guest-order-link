@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Automated GitHub release creation and verified ZIP upload for release tags.
+
 ## [1.0.1] - 2026-08-13
 
 ### Changed

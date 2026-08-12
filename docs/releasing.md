@@ -49,3 +49,5 @@ For the version 1.0.1 renamed-package release:
 A GitHub Release is useful for people downloading the module manually, but Packagist requires the Git tag rather than a GitHub Release. Do not push a tag created before the release commit was verified.
 
 Do not publish directly from a Windows `Compress-Archive` result.
+
+The `Release package` GitHub Actions workflow performs the Linux build and creates or updates the GitHub release when a verified tag is pushed. It can also be dispatched with an existing tag to repair a missing release asset.

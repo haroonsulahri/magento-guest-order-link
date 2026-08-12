@@ -13,7 +13,9 @@ if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
     exit 2
 fi
 
-source_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+default_source_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+source_dir="${BUILD_SOURCE_DIR:-$default_source_dir}"
+source_dir="$(cd -- "$source_dir" && pwd)"
 output_dir="${2:-$source_dir/dist}"
 stage_dir="$(mktemp -d)"
 
