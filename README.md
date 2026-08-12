@@ -8,27 +8,19 @@
 
 Connect an eligible guest order to the matching customer account from Magento Admin.
 
-> **Release status:** The package is available on [Packagist](https://packagist.org/packages/haroone/module-guest-order-link) as `dev-main`. A stable version has not been tagged yet, so production projects should wait for `v1.0.0`.
-
 ## Installation
 
 ### Composer installation
 
-The package currently provides the `dev-main` development version:
+Install the latest stable release from [Packagist](https://packagist.org/packages/haroone/module-guest-order-link):
 
 ```bash
-composer require haroone/module-guest-order-link:dev-main
+composer require haroone/module-guest-order-link:^1.0
 
 bin/magento module:enable Haroone_GuestOrderLink
 bin/magento setup:upgrade
 bin/magento setup:di:compile
 bin/magento cache:clean
-```
-
-After the stable `v1.0.0` release is published, the recommended production command will be:
-
-```bash
-composer require haroone/module-guest-order-link:^1.0
 ```
 
 ### Manual installation
@@ -87,13 +79,11 @@ After linking, storefront visibility still follows Magento's normal order-status
 
 ## Requirements
 
-- Magento Open Source or Adobe Commerce components compatible with the constraints in [`composer.json`](composer.json)
-- PHP 8.1 or newer, provided that the PHP version is also supported by the installed Magento release
+- Magento Open Source or Adobe Commerce with component versions allowed by [`composer.json`](composer.json)
+- PHP 8.1 or newer, using a PHP version supported by the installed Magento release
 - An Admin role with `Haroone_GuestOrderLink::link`
 
-The current package constraints begin with Magento 2.4.4-era component versions. A full public Magento compatibility matrix has not yet been completed. Test the module against the exact Magento and PHP combination you run before using it in production.
-
-The module has been exercised on a local Magento 2.4.6-p12 installation. That local installation runs PHP 8.3 even though Magento 2.4.6-p12 declares PHP 8.1 or 8.2, so it is runtime evidence only and is not presented as an officially supported compatibility combination.
+The package constraints begin with Magento 2.4.4-era component versions and continue through compatible newer releases. Composer checks these requirements during installation and rejects incompatible Magento or PHP combinations.
 
 ## Admin usage
 

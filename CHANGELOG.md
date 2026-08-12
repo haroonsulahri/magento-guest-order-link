@@ -4,6 +4,8 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-08-12
+
 ### Added
 
 - ACL-protected Admin action for assigning an eligible guest order.
@@ -23,5 +25,3 @@ All notable changes to this project are documented in this file.
 - Private history comments contain no customer ID, customer email or Admin ID.
 - Application logs contain entity IDs only, with no exception objects, names or email addresses.
 - Public source and release artifacts are checked for local paths, non-example email addresses and common secret formats.
-
-No stable version has been tagged or published yet. This section will become `1.0.0` when the final verified commit is released.
