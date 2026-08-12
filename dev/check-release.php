@@ -25,6 +25,7 @@ $contentPatterns = [
     'local-only URL' => '~https?://(?:localhost|[^/\s]+\.local)(?=[:/\s]|$)~i',
     'private key' => '~-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----~',
     'credential assignment' => '~(?:api[_-]?key|access[_-]?token|client[_-]?secret|password)\s*[=:>]\s*["\'][^"\'\s]{8,}["\']~i',
+    'exception object in structured context' => '~["\']exception["\']\s*=>\s*\$[A-Za-z_][A-Za-z0-9_]*~',
 ];
 
 $errors = [];

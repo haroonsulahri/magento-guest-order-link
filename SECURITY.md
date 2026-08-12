@@ -19,7 +19,7 @@ Order-to-customer assignment is treated as a privileged operation:
 - Orders already assigned to a customer are rejected.
 - Automatic historical linking and frontend self-service linking are intentionally excluded.
 - The private order-history comment records the trusted Admin display name but no customer ID, customer email or Admin ID.
-- Structured application logs contain order, customer and Admin entity IDs only. They contain no names, email addresses, credentials, payment details or submitted form values.
+- Structured application logs contain order, customer and Admin entity IDs only. They contain no exception objects, names, email addresses, credentials, payment details or submitted form values.
 - The module sends no telemetry and makes no external network requests.
 
 Grant the linking ACL only to trusted order-management roles and follow least-privilege access practices.

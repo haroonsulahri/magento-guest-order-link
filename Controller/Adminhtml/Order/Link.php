@@ -62,10 +62,10 @@ class Link extends Action implements HttpPostActionInterface
             );
         } catch (LocalizedException $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             $this->logger->critical(
                 'Guest order linking failed.',
-                ['exception' => $exception, 'order_id' => $orderId]
+                ['order_id' => $orderId]
             );
             $this->messageManager->addErrorMessage(
                 (string)__('The guest order could not be linked. Review the Magento logs and try again.')

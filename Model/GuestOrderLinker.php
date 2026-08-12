@@ -104,10 +104,10 @@ class GuestOrderLinker implements GuestOrderLinkerInterface
     {
         try {
             $this->gridPool->refreshByOrderId($orderId);
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             $this->logger->warning(
                 'Guest order was linked, but the sales grids could not be refreshed immediately.',
-                ['exception' => $exception, 'order_id' => $orderId]
+                ['order_id' => $orderId]
             );
         }
     }

@@ -10,7 +10,7 @@ body:
     id: module-version
     attributes:
       label: Module version
-      placeholder: 1.0.0
+      placeholder: main, commit SHA, or release tag
     validations:
       required: true
   - type: input

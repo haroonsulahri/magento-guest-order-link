@@ -16,18 +16,33 @@ if ($integrationConfigPath === false || $applicationConfigPath === false) {
 
 $applicationConfig = include $applicationConfigPath;
 $integrationConfig = file_get_contents($integrationConfigPath);
-if ($integrationConfig === false
-    || preg_match("~['\"]db-name['\"]\\s*=>\\s*['\"]([^'\"]+)['\"]~", $integrationConfig, $matches) !== 1
-) {
-    fwrite(STDERR, "The integration-test database name could not be read.\n");
+if ($integrationConfig === false) {
+    fwrite(STDERR, "The integration-test database configuration could not be read.\n");
     exit(2);
 }
-$testDatabase = (string)$matches[1];
+
+$readConfigValue = static function (string $key) use ($integrationConfig): ?string {
+    $pattern = "~['\"]" . preg_quote($key, '~') . "['\"]\\s*=>\\s*['\"]([^'\"]*)['\"]~";
+    if (preg_match($pattern, $integrationConfig, $matches) !== 1) {
+        return null;
+    }
+
+    return (string)$matches[1];
+};
+
+$testDatabase = $readConfigValue('db-name');
+$testHost = $readConfigValue('db-host');
+$testUser = $readConfigValue('db-user');
+$testPassword = $readConfigValue('db-password');
 $applicationDatabase = (string)(
     $applicationConfig['db']['connection']['default']['dbname'] ?? ''
 );
 
-if ($testDatabase === ''
+if ($testDatabase === null
+    || $testHost === null
+    || $testUser === null
+    || $testPassword === null
+    || $testDatabase === ''
     || $applicationDatabase === ''
     || $testDatabase === $applicationDatabase
     || stripos($testDatabase, 'integration') === false
@@ -36,4 +51,28 @@ if ($testDatabase === ''
     exit(1);
 }
 
-fwrite(STDOUT, "Dedicated Magento integration-test database confirmed.\n");
+$host = $testHost;
+$port = null;
+if (preg_match('~^(.+):(\\d+)$~', $testHost, $hostMatches) === 1) {
+    $host = (string)$hostMatches[1];
+    $port = (int)$hostMatches[2];
+}
+
+$dsn = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', $host, $testDatabase);
+if ($port !== null) {
+    $dsn .= ';port=' . $port;
+}
+
+try {
+    new PDO(
+        $dsn,
+        $testUser,
+        $testPassword,
+        [PDO::ATTR_TIMEOUT => 3, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
+} catch (PDOException) {
+    fwrite(STDERR, "The dedicated Magento integration-test database is not reachable.\n");
+    exit(1);
+}
+
+fwrite(STDOUT, "Dedicated Magento integration-test database confirmed and reachable.\n");

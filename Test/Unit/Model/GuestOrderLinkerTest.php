@@ -206,7 +206,7 @@ class GuestOrderLinkerTest extends TestCase
         $this->gridPool->method('refreshByOrderId')->willThrowException(new RuntimeException('Grid failed.'));
         $this->logger->expects(self::once())->method('warning')->with(
             'Guest order was linked, but the sales grids could not be refreshed immediately.',
-            self::arrayHasKey('exception')
+            ['order_id' => 12]
         );
 
         self::assertSame($order, $this->linker->link(12, 7));

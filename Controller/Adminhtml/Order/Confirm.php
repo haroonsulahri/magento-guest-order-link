@@ -75,10 +75,10 @@ class Confirm extends Action
             return $resultPage;
         } catch (LocalizedException $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             $this->logger->critical(
                 'Could not prepare guest order linking confirmation.',
-                ['exception' => $exception, 'order_id' => $orderId]
+                ['order_id' => $orderId]
             );
             $this->messageManager->addErrorMessage(
                 (string)__('The guest order linking confirmation could not be loaded.')

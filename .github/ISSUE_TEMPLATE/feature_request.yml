@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest a focused improvement to the module.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Please describe the Magento problem first. Do not include customer data, credentials or private store details.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+      description: What is difficult or missing in the current workflow?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: What should an Admin user be able to do?
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Security and scope considerations
+      description: Note any customer-sharing, ACL, privacy or multi-website requirements.
+  - type: input
+    id: magento-version
+    attributes:
+      label: Magento version
+      placeholder: 2.4.x

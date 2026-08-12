@@ -2,6 +2,8 @@
 
 Contributions are welcome when they preserve the module's security boundaries, privacy guarantees and Magento upgrade safety.
 
+Participation is subject to the [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## Development requirements
 
 - Use strict PHP types.

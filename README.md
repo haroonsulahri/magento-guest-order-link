@@ -1,122 +1,68 @@
-![Haroone Guest Order Link for Magento 2](docs/images/guest-order-link-banner.png)
+![Haroone Guest Order Link for Magento](docs/images/guest-order-link-banner.png)
 
-# Haroone Guest Order Link for Magento 2
+# Haroone Guest Order Link
 
-Safely link an eligible guest order to the matching registered customer account from Magento Admin.
+[![Package quality](https://github.com/haroonsulahri/magento-guest-order-link/actions/workflows/quality.yml/badge.svg)](https://github.com/haroonsulahri/magento-guest-order-link/actions/workflows/quality.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2563eb.svg)](LICENSE.txt)
 
-## The Magento problem this module solves
+Connect an eligible guest order to the matching customer account from Magento Admin.
 
-Magento allows shoppers to place orders without creating a customer account. If a guest later creates an account through a separate registration flow using the same email address, the earlier order can remain stored as a guest order with no customer account assigned to it. An email match alone does not make that account the owner of the existing order.
+> **Release status:** The source is public and ready for evaluation. A stable tag, GitHub Release and Packagist package have not been published yet, so use the manual installation method for now.
 
-This creates a common support problem:
+## Why this module exists
 
-1. A shopper completes checkout as a guest.
-2. The shopper later creates a customer account using the same email address.
-3. The original order remains unassigned in Magento.
-4. The customer cannot access that order from **My Account > My Orders**, subject to Magento's normal order-status visibility rules.
-5. Magento Admin does not provide a general, controlled action for assigning that individual guest order to the matching account.
+A shopper can place an order as a guest and create an account later with the same email address. Magento does not automatically make every earlier guest order belong to that new account. Support teams are then left with a customer who is signed in but cannot find the order under **My Account > My Orders**.
 
-Magento can associate an order when account creation happens through supported post-checkout registration flows. This module addresses the separate case where an order remains unassigned after the account has been created.
+This module gives an authorized Admin user a controlled way to link one guest order to the exact matching account. It does not bulk-claim order history or let an Admin choose an arbitrary customer.
 
-## Purpose
+## What it does
 
-Haroone Guest Order Link gives an authorized administrator a deliberate way to connect one existing guest order to one existing customer account. The module resolves the customer from the order email, respects Magento's configured customer-account sharing scope, displays both records for confirmation, and revalidates everything before saving.
-
-The workflow is intentionally conservative. It does not search by name, accept an arbitrary customer ID, create a customer, or automatically claim every historical order with the same email address. This reduces the risk of assigning an order to the wrong account.
-
-## Typical use case
-
-A customer contacts support because an order placed before registration is missing from the customer account. An authorized Admin opens the guest order. When an exact eligible customer account exists, the module displays **Link to Customer Account** immediately before **Edit**. The Admin reviews the proposed assignment on a confirmation page and submits it. Magento then associates the order with that customer account.
-
-## Features
-
-- Adds **Link to Customer Account** immediately before **Edit** on eligible Admin order pages.
-- Shows the action only when an exact customer-email match exists in Magento's applicable customer-sharing scope.
-- Presents a confirmation page before changing the order.
-- Revalidates eligibility immediately before saving.
+- Adds **Link to Customer Account** immediately before **Edit** on an eligible Admin order.
+- Shows the action only when an exact account-email match exists in the applicable customer-sharing scope.
+- Displays a confirmation page before anything is changed.
+- Revalidates the order and customer immediately before saving.
 - Uses Magento's native customer-assignment service instead of direct SQL.
-- Adds a private audit comment containing the trusted Admin display name, without customer IDs, customer emails, or Admin IDs.
-- Refreshes the affected sales grid after a successful assignment.
-- Uses a per-order lock to reduce concurrent assignment risk.
-- Protects the button and controllers with a dedicated ACL resource.
-- Adds no database tables, storefront assets, telemetry, or external service calls.
+- Records a private audit comment with the trusted Admin display name.
+- Refreshes the affected sales grid after assignment.
+- Uses a per-order lock to reduce concurrent assignment attempts.
+- Protects the UI and controllers with a dedicated ACL permission.
 
-## Eligibility requirements
+## Eligibility and safety
 
-The Admin action is available only when all of the following conditions are satisfied:
+The action is available only when the order is still an unassigned guest order, contains an email address, and has one exact customer match in Magento's configured global or per-website account-sharing scope. The Admin role must also have the module permission.
 
-| Requirement | Reason |
-| --- | --- |
-| The Admin role has the module's ACL permission | Prevents unauthorized order assignment |
-| The order is still marked as a guest order | Prevents changing normal registered-customer orders |
-| The order has no customer ID assigned | Prevents reassignment of an existing association |
-| The order contains a customer email address | Provides the trusted lookup value |
-| An account with that exact email exists | Avoids approximate or name-based matching |
-| The account is valid within Magento's configured sharing scope | Prevents unintended cross-website assignment |
+The same checks run when the confirmation page opens and again when the POST request is submitted. A stale page therefore cannot bypass the rules.
 
-If any requirement is not met, the button is not displayed. The same checks run again when the confirmation page is opened and immediately before the assignment is saved, so a stale Admin page cannot bypass the rules.
+The module deliberately does not:
 
-## How the assignment works
-
-1. The order view button requests a server-side eligibility check.
-2. The module reads the email already stored on the guest order.
-3. Magento's customer repository resolves the exact account in the applicable global or per-website customer-sharing scope.
-4. A confirmation page shows the order and resolved account to the authorized Admin.
-5. The final action is submitted with a POST request protected by Magento's form key validation.
-6. Eligibility is revalidated and a per-order lock reduces concurrent assignment attempts.
-7. Magento's native customer-assignment service associates the order with the resolved account.
-8. A private, non-customer-visible audit comment records the trusted Admin display name.
-9. The affected sales grids are refreshed.
-
-After a successful assignment, the order belongs to the customer account. Whether it is visible in **My Orders** still depends on Magento's existing storefront order-status visibility configuration. The module warns the Admin when the current status is not configured for storefront display, but it does not change that global configuration.
-
-## Safety boundaries
-
-The module does not:
-
-- automatically link historical orders by email;
-- bulk-link multiple orders;
 - reassign an order that already belongs to a customer;
-- create a new customer account;
-- select a customer by name or accept an arbitrary customer ID;
-- link across websites when customer accounts are shared per website;
-- modify order state, status, totals, payment, addresses, quote, or items;
-- change global order-status storefront visibility;
-- create or update customer addresses;
-- expose a customer-facing linking endpoint.
+- match customers by name or a submitted customer ID;
+- create customer accounts or addresses;
+- bulk-link historical orders;
+- change order status, totals, payment, addresses, items or quote data;
+- add a storefront endpoint, telemetry or external service call.
 
-## Compatibility
+After linking, storefront visibility still follows Magento's normal order-status configuration. The confirmation page warns the Admin when the current status is not visible on the storefront, but the module does not change that global setting.
 
-The Composer constraints target Magento Open Source and Adobe Commerce 2.4.4 or newer, with a PHP version supported by the installed Magento release.
+## Requirements
 
-| Magento | PHP | Verification status |
-| --- | --- | --- |
-| 2.4.6-p12 | 8.3 | Unit, static, compilation, package and local runtime verification completed |
-| Other releases allowed by `composer.json` | Magento-supported version | Not yet verified in the public CI matrix |
+- Magento Open Source or Adobe Commerce components compatible with the constraints in [`composer.json`](composer.json)
+- PHP 8.1 or newer, provided that the PHP version is also supported by the installed Magento release
+- An Admin role with `Haroone_GuestOrderLink::link`
 
-Compatibility outside the verified row should be tested in a disposable Magento environment before production deployment.
+The current package constraints begin with Magento 2.4.4-era component versions. A full public Magento compatibility matrix has not yet been completed. Test the module against the exact Magento and PHP combination you run before using it in production.
 
-## Installation with Composer
+The module has been exercised on a local Magento 2.4.6-p12 installation. That local installation runs PHP 8.3 even though Magento 2.4.6-p12 declares PHP 8.1 or 8.2, so it is runtime evidence only and is not presented as an officially supported compatibility combination.
 
-After the package is published to a Composer repository:
+## Installation
 
-```bash
-composer require haroone/module-guest-order-link
-bin/magento module:enable Haroone_GuestOrderLink
-bin/magento setup:upgrade
-bin/magento setup:di:compile
-bin/magento cache:clean
-```
-
-## Manual installation
-
-Copy the module to:
+Until the first stable release is published, copy or clone this repository into:
 
 ```text
 app/code/Haroone/GuestOrderLink
 ```
 
-Then run:
+Then run from the Magento root:
 
 ```bash
 bin/magento module:enable Haroone_GuestOrderLink
@@ -125,67 +71,56 @@ bin/magento setup:di:compile
 bin/magento cache:clean
 ```
 
-The module has no declarative schema and does not require reindexing or static-content deployment.
+No database tables are added. The module does not require reindexing or static-content deployment.
+
+Once the package is published on Packagist, Composer installation will use:
+
+```bash
+composer require haroone/module-guest-order-link
+```
+
+Do not use that command until the package page and stable version are visible on Packagist.
 
 ## Admin usage
 
 1. Open **Sales > Orders**.
 2. Open an unassigned guest order.
-3. Click **Link to Customer Account**.
-4. Review the order and resolved customer account.
+3. Click **Link to Customer Account** next to **Edit**.
+4. Check the order and matched account on the confirmation page.
 5. Click **Link Order to Customer**.
-6. Confirm the order appears in the customer's **My Orders** collection.
+6. Confirm the order is assigned to the customer. If the order status is storefront-visible, confirm it also appears under **My Account > My Orders**.
 
-The action is hidden when no exact match exists, the order is already assigned, the order is not a guest order, or the Admin role lacks permission.
-
-## Permission
-
-Grant the role permission under:
+Grant access under:
 
 ```text
 Sales > Operations > Orders > Actions > Link Guest Orders to Customer Accounts
 ```
 
-The ACL resource is `Haroone_GuestOrderLink::link`.
+## Development and verification
 
-## Testing
-
-Run the unit suite from a Magento root containing development dependencies:
+Run the unit suite from a Magento root with development dependencies:
 
 ```bash
 vendor/bin/phpunit -c app/code/Haroone/GuestOrderLink/phpunit.xml.dist
 ```
 
-Run the Magento integration test in a dedicated integration-test database:
+The repository's package-quality workflow validates Composer metadata, PHP syntax, XML, privacy checks and the Linux release archive. The separate Magento workflow installs a clean Magento instance and runs unit tests, coding standards, PHPStan, DI compilation and integration tests when `COMPOSER_AUTH` is configured.
 
-```bash
-cd dev/tests/integration
-../../../vendor/bin/phpunit -c phpunit.xml.dist \
-  ../../../app/code/Haroone/GuestOrderLink/Test/Integration
-```
+See:
 
-See [docs/validation.md](docs/validation.md) for the complete test matrix and [docs/privacy.md](docs/privacy.md) for data-handling details.
+- [Validation guide](docs/validation.md)
+- [Privacy and data handling](docs/privacy.md)
+- [Release process](docs/releasing.md)
+- [Brand assets](docs/branding.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
 
-The dependency-free package workflow runs on every push and pull request. Maintainers can run the Magento verification workflow after configuring the repository's `COMPOSER_AUTH` secret for `repo.magento.com`; it installs a clean Magento instance and runs unit, coding-standard, PHPStan, DI compilation and integration checks.
+## Privacy and security
 
-## Brand assets
+The module sends no data outside Magento. Its private order-history comment contains only the trusted Admin display name. Structured application logs contain entity IDs only and never include customer names, email addresses, Admin names, submitted form values or exception objects.
 
-The canonical extension artwork is stored with the repository:
-
-- [Extension icon SVG](docs/images/guest-order-link-icon.svg): scalable production source for repository and marketplace use.
-- [Extension icon PNG](docs/images/guest-order-link-icon.png): 512 x 512 transparent fallback for Haroone.com listings, package directories and square thumbnails.
-- [Extension banner](docs/images/guest-order-link-banner.png): 1600 x 640 PNG for repository documentation and extension headers.
-- [Haroone logo badge SVG](docs/images/haroone-logo-badge.svg): production source for the rounded black banner lockup.
-- [Haroone logo badge PNG](docs/images/haroone-logo-badge.png): 256 x 256 transparent fallback.
-
-Keep the original aspect ratios and do not add store, customer or environment-specific information to these public assets. The deep-navy linework and blue-to-cyan linking accent form the reusable visual system; the order-to-customer symbol identifies this module specifically.
-
-The square extension icon uses a deep-navy monoline order-to-customer symbol, a blue-to-cyan linking accent and a single lower assignment curve. It intentionally contains no Haroone logo or wordmark. The Haroone logo is reserved for the banner, where it remains clearly readable.
-
-## Support and security
-
-Use the repository's Issues tab for non-sensitive defects and feature requests. Follow [SECURITY.md](SECURITY.md) for private vulnerability reporting.
+Report security issues privately as described in [SECURITY.md](SECURITY.md). Do not put customer data, credentials, order exports or vulnerabilities in a public issue.
 
 ## License
 
-MIT. See [LICENSE.txt](LICENSE.txt).
+Released under the [MIT License](LICENSE.txt).

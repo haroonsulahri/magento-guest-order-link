@@ -15,7 +15,7 @@ The module processes data already stored in Magento and does not transmit it out
 | Admin order and confirmation pages | Existing order and matched customer details, visible only to an authorized Admin user |
 | POST request | Order ID only; no customer ID is accepted |
 | Private order history | Trusted Admin display name only; no customer ID, customer email or Admin ID |
-| Magento application log | Order, customer and Admin entity IDs only |
+| Magento application log | Order, customer and Admin entity IDs only; no exception object, message or stack trace |
 | External services | None |
 | Telemetry or analytics | None |
 

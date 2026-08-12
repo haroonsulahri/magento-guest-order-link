@@ -45,6 +45,7 @@ tar -C "$source_dir" -cf - \
     --exclude='./auth.json' \
     --exclude='./composer.lock' \
     --exclude='./CONTRIBUTING.md' \
+    --exclude='./CODE_OF_CONDUCT.md' \
     --exclude='./phpcs.xml.dist' \
     --exclude='./phpstan.neon.dist' \
     --exclude='./phpunit.xml.dist' \

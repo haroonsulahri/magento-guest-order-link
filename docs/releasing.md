@@ -7,6 +7,7 @@
 - Run the complete validation guide in a disposable Magento environment.
 - Confirm GitHub private vulnerability reporting is enabled and monitored.
 - Confirm the package name is available in the intended Composer repository.
+- Confirm no existing local or remote release tag points to a different commit.
 
 ## Build
 
@@ -30,5 +31,20 @@ Before tagging or uploading:
 6. Run `setup:upgrade`, DI compilation, unit tests and the integration test.
 7. Complete the functional matrix using generated records only.
 8. Tag the exact verified commit and attach only the verified archive.
+
+## Tagging and Packagist
+
+Packagist reads versions from Git branches and tags. Do not add a `version` field to `composer.json`.
+
+For the first stable release:
+
+1. Create an annotated `v1.0.0` tag on the exact verified commit.
+2. Push the commit and tag to GitHub.
+3. Optionally create a GitHub Release and attach the verified manual-install ZIP.
+4. Submit `https://github.com/haroonsulahri/magento-guest-order-link` to Packagist.
+5. Enable or confirm automatic GitHub updates on the Packagist package page.
+6. Confirm Packagist exposes `1.0.0` and test `composer require haroone/module-guest-order-link:^1.0` in a disposable Magento installation.
+
+A GitHub Release is useful for people downloading the module manually, but Packagist requires the Git tag rather than a GitHub Release. Do not push a tag created before the release commit was verified.
 
 Do not publish directly from a Windows `Compress-Archive` result.

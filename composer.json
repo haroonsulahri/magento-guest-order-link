@@ -6,10 +6,12 @@
     "keywords": [
         "magento2",
         "magento2-extension",
+        "magento-extension",
         "guest-order",
         "customer-account",
         "order-management",
-        "admin"
+        "admin",
+        "ecommerce"
     ],
     "authors": [
         {
