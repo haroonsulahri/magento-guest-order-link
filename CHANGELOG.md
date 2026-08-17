@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Changed
+
+- Set the GitHub repository explicitly when the release workflow runs from subdirectory checkouts.
+
 ## [1.0.2] - 2026-08-17
 
 ### Added

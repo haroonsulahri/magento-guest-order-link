@@ -52,6 +52,7 @@ jobs:
       - name: Create or update GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           archive="$(find dist -maxdepth 1 -type f -name '*.zip' -print -quit)"
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
