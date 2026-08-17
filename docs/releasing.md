@@ -43,7 +43,7 @@ For the version 1.0.2 button-label release:
 3. Push the commit and tag to GitHub.
 4. Create a GitHub Release and attach the verified manual-install ZIP.
 5. Confirm Packagist updates `haroone/module-link-guest-order-to-customer` from the GitHub tag.
-6. Confirm Packagist exposes `1.0.2` and test `composer require haroone/module-link-guest-order-to-customer:^1.0` in a disposable Magento installation.
+6. Confirm Packagist exposes `1.0.2` and test `composer require haroone/module-link-guest-order-to-customer:^1.0.2` in a disposable Magento installation.
 
 A GitHub Release is useful for people downloading the module manually, but Packagist requires the Git tag rather than a GitHub Release. Do not push a tag created before the release commit was verified.
 

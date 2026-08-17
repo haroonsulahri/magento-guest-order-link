@@ -22,7 +22,7 @@ Back up `composer.json`, `composer.lock` and `app/etc/config.php`, then run from
 bin/magento module:disable Haroone_GuestOrderLink
 
 composer remove haroone/module-guest-order-link --no-update
-composer require haroone/module-link-guest-order-to-customer:^1.0 --no-update
+composer require haroone/module-link-guest-order-to-customer:^1.0.2 --no-update
 composer update haroone/module-guest-order-link haroone/module-link-guest-order-to-customer --with-all-dependencies
 
 bin/magento module:enable Haroone_LinkGuestOrderToCustomer

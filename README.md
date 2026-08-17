@@ -19,7 +19,7 @@ A free, open-source Magento extension built and maintained by [Haroone](https://
 Install the latest stable release from [Packagist](https://packagist.org/packages/haroone/module-link-guest-order-to-customer):
 
 ```bash
-composer require haroone/module-link-guest-order-to-customer:^1.0
+composer require haroone/module-link-guest-order-to-customer:^1.0.2
 
 bin/magento module:enable Haroone_LinkGuestOrderToCustomer
 bin/magento setup:upgrade
