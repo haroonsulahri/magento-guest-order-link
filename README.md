@@ -46,6 +46,28 @@ bin/magento cache:clean
 
 No database tables are added. Reindexing and static-content deployment are not required for this module.
 
+### Updating an existing installation
+
+Review the [GitHub release notes](https://github.com/haroonsulahri/magento-link-guest-order-to-customer/releases) before updating and use the store's normal maintenance and deployment process in production.
+
+For a Composer installation, update only this package and confirm the resolved version:
+
+```bash
+composer update haroone/module-link-guest-order-to-customer
+composer show haroone/module-link-guest-order-to-customer
+
+bin/magento cache:clean config layout block_html
+```
+
+For a manual installation, back up the current `app/code/Haroone/LinkGuestOrderToCustomer` directory outside `app/code`, replace the directory with the files from the latest release ZIP, and then run:
+
+```bash
+bin/magento module:status Haroone_LinkGuestOrderToCustomer
+bin/magento cache:clean config layout block_html
+```
+
+Replace the complete manual-installation directory instead of merging old and new release files. Run `setup:upgrade`, DI compilation, static-content deployment or reindexing only when the relevant release notes require them. The current `v1.0.2` release does not require those additional steps.
+
 ### Migrating from the legacy package
 
 The renamed package starts at version 1.0.1. If `haroone/module-guest-order-link` or `Haroone_GuestOrderLink` is already installed, follow the complete [legacy-package migration guide](UPGRADING.md) so Magento never loads both module identities during the change. The rename does not change sales or customer data.

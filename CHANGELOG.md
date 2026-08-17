@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Documented normal Composer and manual update workflows in the README.
+
 ### Changed
 
 - Set the GitHub repository explicitly when the release workflow runs from subdirectory checkouts.
