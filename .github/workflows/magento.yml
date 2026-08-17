@@ -81,6 +81,10 @@ jobs:
           rsync -a --delete --exclude=.git "$GITHUB_WORKSPACE/module/" \
             "$RUNNER_TEMP/magento/app/code/Haroone/LinkGuestOrderToCustomer/"
 
+      - name: Enable Magento modules
+        working-directory: ${{ runner.temp }}/magento
+        run: bin/magento module:enable --all
+
       - name: Run unit tests
         working-directory: ${{ runner.temp }}/magento
         run: vendor/bin/phpunit -c app/code/Haroone/LinkGuestOrderToCustomer/phpunit.xml.dist

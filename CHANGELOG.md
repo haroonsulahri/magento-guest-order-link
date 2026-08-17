@@ -14,6 +14,7 @@ All notable changes to this project are documented in this file.
 
 - Shortened the eligible Admin order action label to **Link to Customer Account**.
 - Loaded the existing test bootstrap during PHPStan analysis so Magento-generated factory classes resolve in clean CI installations.
+- Enabled Magento modules before clean-install DI compilation in the Magento verification workflow.
 
 ## [1.0.1] - 2026-08-13
 
