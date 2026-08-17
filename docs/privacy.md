@@ -4,7 +4,7 @@
 
 The repository and release archive must contain no production customer records, order identifiers, Admin identities, private store names, private domains, local filesystem paths, credentials or tokens.
 
-The dependency-free release check rejects non-example email addresses, local URLs, common absolute user paths and common credential formats. A maintainer must also inspect the final archive before publishing it.
+The dependency-free release check rejects non-example email addresses, local URLs, common absolute home-directory paths and common credential formats. A maintainer must also inspect the final archive before publishing it.
 
 ## Runtime data
 

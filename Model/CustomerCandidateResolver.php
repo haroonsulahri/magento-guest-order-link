@@ -68,7 +68,7 @@ class CustomerCandidateResolver
         } catch (NoSuchEntityException $exception) {
             throw new LocalizedException(
                 __(
-                    'No customer account with email %1 exists in the applicable website scope.',
+                    'No customer account with the email address %1 was found in the applicable customer-sharing scope.',
                     $email
                 ),
                 $exception
@@ -85,7 +85,7 @@ class CustomerCandidateResolver
 
         if ($lookupWebsiteId !== null && (int)$customer->getWebsiteId() !== $lookupWebsiteId) {
             throw new LocalizedException(
-                __('The customer account belongs to a different website than order %1.', $incrementId)
+                __('The customer account and order %1 belong to different websites.', $incrementId)
             );
         }
 

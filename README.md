@@ -6,7 +6,7 @@
 [![Packagist](https://img.shields.io/badge/Packagist-haroone%2Fmodule--link--guest--order--to--customer-f28d1a.svg)](https://packagist.org/packages/haroone/module-link-guest-order-to-customer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2563eb.svg)](LICENSE.txt)
 
-Connect an eligible guest order to the matching customer account from Magento Admin.
+Link an eligible guest order to the matching customer account in Magento Admin.
 
 A free, open-source Magento extension built and maintained by [Haroone](https://haroone.com/).
 
@@ -59,14 +59,14 @@ composer show haroone/module-link-guest-order-to-customer
 bin/magento cache:clean config layout block_html
 ```
 
-For a manual installation, back up the current `app/code/Haroone/LinkGuestOrderToCustomer` directory outside `app/code`, replace the directory with the files from the latest release ZIP, and then run:
+For a manual installation, back up the current `app/code/Haroone/LinkGuestOrderToCustomer` directory outside `app/code`. Replace the existing directory with the files from the latest release ZIP, and then run:
 
 ```bash
 bin/magento module:status Haroone_LinkGuestOrderToCustomer
 bin/magento cache:clean config layout block_html
 ```
 
-Replace the complete manual-installation directory instead of merging old and new release files. Run `setup:upgrade`, DI compilation, static-content deployment or reindexing only when the relevant release notes require them. The current `v1.0.2` release does not require those additional steps.
+Replace the entire manual-installation directory instead of merging old and new release files. Run `setup:upgrade`, DI compilation, static-content deployment or reindexing only when the relevant release notes require them. The current `v1.0.2` release does not require those additional steps.
 
 ### Migrating from the legacy package
 
@@ -74,16 +74,16 @@ The renamed package starts at version 1.0.1. If `haroone/module-guest-order-link
 
 ## Why this module exists
 
-A shopper can place an order as a guest and create an account later with the same email address. Magento does not automatically make every earlier guest order belong to that new account. Support teams are then left with a customer who is signed in but cannot find the order under **My Account > My Orders**.
+A shopper can place an order as a guest and later create an account with the same email address. Magento does not automatically associate every previous guest order with the new account. As a result, a signed-in customer may be unable to find the order under **My Account > My Orders**.
 
-This module gives an authorized Admin user a controlled way to link one guest order to the exact matching account. It does not bulk-claim order history or let an Admin choose an arbitrary customer.
+This module gives an authorized Admin user a controlled way to link a specific guest order to its exact matching customer account. It does not link historical orders in bulk or let an Admin choose an arbitrary customer.
 
 ## What it does
 
 - Adds **Link to Customer Account** immediately before **Edit** on an eligible Admin order.
-- Shows the action only when an exact account-email match exists in the applicable customer-sharing scope.
+- Shows the action only when the order email exactly matches a customer account within the applicable customer-sharing scope.
 - Displays a confirmation page before anything is changed.
-- Revalidates the order and customer immediately before saving.
+- Revalidates the order and matched customer immediately before linking.
 - Uses Magento's native customer-assignment service instead of direct SQL.
 - Records a private audit comment with the trusted Admin display name.
 - Refreshes the affected sales grid after assignment.
@@ -92,7 +92,7 @@ This module gives an authorized Admin user a controlled way to link one guest or
 
 ## Eligibility and safety
 
-The action is available only when the order is still an unassigned guest order, contains an email address, and has one exact customer match in Magento's configured global or per-website account-sharing scope. The Admin role must also have the module permission.
+The action is available only for an unassigned guest order with an email address and exactly one matching customer account in Magento's configured global or per-website account-sharing scope. The Admin role must also have the module permission.
 
 The same checks run when the confirmation page opens and again when the POST request is submitted. A stale page therefore cannot bypass the rules.
 
@@ -157,7 +157,7 @@ Report security issues privately as described in [SECURITY.md](SECURITY.md). Do 
 
 ## Support and Magento services
 
-[Haroone](https://haroone.com/) is an ecommerce engineering company led by Magento expertise. The team works on custom modules, checkout and Admin workflows, migrations and upgrades, integrations, performance, technical SEO and ongoing production support.
+[Haroone](https://haroone.com/) is an ecommerce engineering company specializing in Magento. The team works on custom modules, checkout and Admin workflows, migrations and upgrades, integrations, performance, technical SEO and ongoing production support.
 
 Use [GitHub Issues](https://github.com/haroonsulahri/magento-link-guest-order-to-customer/issues) for reproducible product bugs and feature requests. If the problem belongs to one store rather than the open-source package, contact Haroone privately with the store context.
 

@@ -9,9 +9,9 @@ Participation is subject to the [Code of Conduct](CODE_OF_CONDUCT.md).
 - Use strict PHP types.
 - Do not edit Magento core or use direct SQL for order assignment.
 - Keep state-changing Admin actions POST-only and ACL-protected.
-- Preserve Magento customer-sharing scope.
+- Preserve Magento's configured customer-sharing scope.
 - Do not add automatic historical linking without verified email ownership and a dedicated security review.
-- Do not add telemetry, remote calls, production records, private URLs, local paths or personal contact details.
+- Do not add telemetry, remote calls, production data, private URLs, local paths or personal contact details.
 - Add or update tests for every behavior change.
 - Keep the module independent of themes and unrelated modules.
 

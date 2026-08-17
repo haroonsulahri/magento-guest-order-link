@@ -77,11 +77,11 @@ class Confirm extends Action
             $this->messageManager->addErrorMessage($exception->getMessage());
         } catch (Throwable) {
             $this->logger->critical(
-                'Could not prepare guest order linking confirmation.',
+                'Could not prepare the guest order link confirmation page.',
                 ['order_id' => $orderId]
             );
             $this->messageManager->addErrorMessage(
-                (string)__('The guest order linking confirmation could not be loaded.')
+                (string)__('The confirmation page could not be loaded. Return to the order and try again.')
             );
         }
 

@@ -13,9 +13,9 @@ Repository maintainers must enable and monitor private vulnerability reporting b
 Order-to-customer assignment is treated as a privileged operation:
 
 - The Admin button and both controllers require `Haroone_LinkGuestOrderToCustomer::link`.
-- The state-changing endpoint accepts POST requests only and uses Magento Admin form-key and secret-key protections.
+- The state-changing endpoint accepts POST requests only and uses Magento Admin form-key and secret-key validation.
 - The server resolves the customer from the stored order email and never trusts a submitted customer ID.
-- Magento global or per-website customer-sharing scope is enforced.
+- Magento's global or per-website customer-sharing scope is enforced.
 - Orders already assigned to a customer are rejected.
 - Automatic historical linking and frontend self-service linking are intentionally excluded.
 - The private order-history comment records the trusted Admin display name but no customer ID, customer email or Admin ID.

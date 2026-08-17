@@ -43,7 +43,7 @@ $customer = $block->getCustomer();
     <div>
         <?= $escaper->escapeHtml(
             __(
-                'This action links the order to the customer account. It does not change the order status, totals, payment, addresses, quote, or storefront status configuration.'
+                'This action links the order to the customer account. It does not change the order status, totals, payment, addresses, quote data, or storefront visibility settings.'
             )
         ) ?>
     </div>
@@ -54,7 +54,7 @@ $customer = $block->getCustomer();
         <div>
             <?= $escaper->escapeHtml(
                 __(
-                    'The current order status is not configured as visible on the storefront. The assignment can succeed, but the order will remain hidden until that global status configuration is changed separately.'
+                    'The current order status is not visible on the storefront. Linking can still succeed, but the order will remain hidden from the customer\'s order history until the global order-status configuration is updated.'
                 )
             ) ?>
         </div>

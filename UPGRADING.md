@@ -1,10 +1,10 @@
 # Migrating from Guest Order Link
 
-The current renamed extension is published as version 1.0.1. This is not an in-place Composer update because the Composer package, Magento module, PHP namespace, Admin route, ACL resource and installation directory have new names. The order-linking behavior and stored Magento sales data are unchanged.
+The renamed extension was first published as version 1.0.1. This is not an in-place Composer update because the Composer package, Magento module, PHP namespace, Admin route, ACL resource and installation directory have new names. The order-linking behavior and stored Magento sales data are unchanged.
 
 ## Identifier map
 
-| Legacy package | Current package (v1.0.1) |
+| Legacy package | Current package (v1.0.1 and later) |
 | --- | --- |
 | `haroone/module-guest-order-link` | `haroone/module-link-guest-order-to-customer` |
 | `Haroone_GuestOrderLink` | `Haroone_LinkGuestOrderToCustomer` |
@@ -14,7 +14,7 @@ The current renamed extension is published as version 1.0.1. This is not an in-p
 | `Haroone_GuestOrderLink::link` | `Haroone_LinkGuestOrderToCustomer::link` |
 | `haroone-guest-order-link` | `haroone-link-guest-order-to-customer` |
 
-## Composer installation upgrade
+## Composer migration
 
 Back up `composer.json`, `composer.lock` and `app/etc/config.php`, then run from the Magento root:
 
@@ -31,9 +31,9 @@ bin/magento setup:di:compile
 bin/magento cache:clean
 ```
 
-The new package conflicts with `haroone/module-guest-order-link`, so Composer cannot keep both packages installed. Do not bypass that conflict with `replace`, a path repository or a manually copied second module.
+The current package conflicts with `haroone/module-guest-order-link`, so Composer cannot keep both packages installed. Do not bypass that conflict with `replace`, a path repository or a manually copied second module.
 
-## Manual installation upgrade
+## Manual migration
 
 Disable the old module before moving its source out of `app/code`:
 
@@ -41,7 +41,7 @@ Disable the old module before moving its source out of `app/code`:
 bin/magento module:disable Haroone_GuestOrderLink
 ```
 
-Remove or archive only this verified old directory:
+Remove or archive only the following verified legacy directory:
 
 ```text
 app/code/Haroone/GuestOrderLink
@@ -62,7 +62,7 @@ bin/magento setup:di:compile
 bin/magento cache:clean
 ```
 
-## After upgrading
+## After migrating
 
 - Re-grant **Sales > Operations > Orders > Actions > Link Guest Order to Customer** to restricted Admin roles. The ACL resource ID changed, so a role that explicitly held the legacy permission does not inherit the new permission automatically.
 - Update custom integrations, tests or preferences that reference the legacy PHP namespace, route or ACL resource.

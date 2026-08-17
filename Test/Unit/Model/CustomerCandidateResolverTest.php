@@ -112,7 +112,9 @@ class CustomerCandidateResolverTest extends TestCase
         );
 
         $this->expectException(LocalizedException::class);
-        $this->expectExceptionMessage('No customer account with email missing@example.com');
+        $this->expectExceptionMessage(
+            'No customer account with the email address missing@example.com was found'
+        );
 
         $this->resolver->resolve($order);
     }
@@ -128,7 +130,7 @@ class CustomerCandidateResolverTest extends TestCase
         $this->customerRepository->method('get')->willReturn($customer);
 
         $this->expectException(LocalizedException::class);
-        $this->expectExceptionMessage('belongs to a different website');
+        $this->expectExceptionMessage('belong to different websites');
 
         $this->resolver->resolve($order);
     }

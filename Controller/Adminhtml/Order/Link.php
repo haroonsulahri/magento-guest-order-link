@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
- * Executes the validated guest order assignment from Admin.
+ * Executes the validated guest order assignment in Magento Admin.
  */
 class Link extends Action implements HttpPostActionInterface
 {
@@ -55,7 +55,7 @@ class Link extends Action implements HttpPostActionInterface
             $order = $this->linkGuestOrderToCustomer->link($orderId, $adminUserId);
             $this->messageManager->addSuccessMessage(
                 (string)__(
-                    'Order #%1 has been linked to the customer account %2.',
+                    'Order #%1 is now linked to the customer account %2.',
                     $order->getIncrementId(),
                     $order->getCustomerEmail()
                 )
@@ -68,7 +68,7 @@ class Link extends Action implements HttpPostActionInterface
                 ['order_id' => $orderId]
             );
             $this->messageManager->addErrorMessage(
-                (string)__('The guest order could not be linked. Review the Magento logs and try again.')
+                (string)__('The guest order could not be linked. Check the Magento logs and try again.')
             );
         }
 

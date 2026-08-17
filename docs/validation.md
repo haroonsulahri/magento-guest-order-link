@@ -4,7 +4,7 @@
 
 Target: an eligible guest order in a disposable Magento environment.
 
-Expected outcome: the order receives the matching customer assignment and becomes available through that customer's order collection.
+Expected outcome: the order is assigned to the matching customer account and appears in that customer's order collection.
 
 Must remain unchanged: order state, status, totals, payment, items, billing and shipping records, quote data and global storefront-status configuration.
 
@@ -39,13 +39,13 @@ cd dev/tests/integration
 
 Magento integration tests install and clean their own database. Verify the integration configuration before running them and never use a database containing business data.
 
-When the integration framework cannot be installed, run the transactional runtime smoke test from the Magento root. It creates generated records inside a database transaction, verifies persistence and rolls the transaction back:
+When the Magento integration test framework is unavailable, run the transactional runtime smoke test from the Magento root. It creates generated records inside a database transaction, verifies persistence and rolls the transaction back:
 
 ```bash
 php app/code/Haroone/LinkGuestOrderToCustomer/dev/runtime-smoke.php
 ```
 
-The command must finish with both the runtime-check and rollback-verification messages.
+The command must report that the runtime assignment passed and the rollback was verified.
 
 ## Functional matrix
 
@@ -68,7 +68,7 @@ After a successful disposable test assignment, verify:
 
 - `sales_order.customer_id` matches the resolved customer;
 - `sales_order.customer_is_guest` is false;
-- the private history comment exists and is neither visible on the storefront nor customer-notified;
+- the private history comment exists, is not visible on the storefront and does not notify the customer;
 - the history comment contains no customer ID, customer email or Admin ID;
 - the order is returned by the customer's order collection;
 - `sales_order_grid` reflects the assigned customer.
@@ -79,7 +79,7 @@ Compare before and after values for:
 - grand total and base grand total;
 - payment method and payment record;
 - order items and quantities;
-- billing and shipping order-address records;
+- billing and shipping address records;
 - quote ownership and quote data;
 - `sales_order_status_state.visible_on_front`.
 

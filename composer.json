@@ -1,6 +1,6 @@
 {
     "name": "haroone/module-link-guest-order-to-customer",
-    "description": "Safely link an eligible Magento guest order to the matching registered customer account from Admin.",
+    "description": "Safely link an eligible Magento guest order to the matching customer account in Magento Admin.",
     "type": "magento2-module",
     "license": "MIT",
     "keywords": [

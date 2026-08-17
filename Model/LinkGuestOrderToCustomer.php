@@ -66,7 +66,7 @@ class LinkGuestOrderToCustomer implements LinkGuestOrderToCustomerInterface
         try {
             $order = $this->orderRepository->get($orderId);
             if (!$order instanceof Order) {
-                throw new LocalizedException(__('The order model could not be loaded safely.'));
+                throw new LocalizedException(__('The order could not be loaded.'));
             }
 
             $customer = $this->candidateResolver->resolve($order);
