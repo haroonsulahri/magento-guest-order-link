@@ -7,12 +7,12 @@ $customer = $block->getCustomer();
 ?>
 <section class="admin__page-section">
     <div class="admin__page-section-title">
-        <span class="title"><?= $escaper->escapeHtml(__('Confirm Guest Order to Customer Link')) ?></span>
+        <span class="title"><?= $escaper->escapeHtml(__('Confirm Link to Customer Account')) ?></span>
     </div>
     <div class="admin__page-section-content">
         <p>
             <?= $escaper->escapeHtml(
-                __('Review the order and customer account before completing this permanent assignment.')
+                __('Review the guest order and matched customer account. This action permanently assigns the order to this customer account.')
             ) ?>
         </p>
 
@@ -69,7 +69,7 @@ $customer = $block->getCustomer();
            name="order_id"
            value="<?= $escaper->escapeHtmlAttr((string)$order->getEntityId()) ?>"/>
     <button type="submit" class="action-primary scalable">
-        <span><?= $escaper->escapeHtml(__('Link Guest Order to Customer')) ?></span>
+        <span><?= $escaper->escapeHtml(__('Link to Customer Account')) ?></span>
     </button>
     <a class="action-secondary" href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>">
         <span><?= $escaper->escapeHtml(__('Cancel')) ?></span>

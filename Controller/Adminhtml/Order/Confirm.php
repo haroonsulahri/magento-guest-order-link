@@ -60,7 +60,7 @@ class Confirm extends Action
             /** @var BackendResultPage $resultPage */
             $resultPage = $this->resultPageFactory->create();
             $resultPage->setActiveMenu('Magento_Sales::sales_order');
-            $resultPage->getConfig()->getTitle()->prepend((string)__('Link Guest Order to Customer'));
+            $resultPage->getConfig()->getTitle()->prepend((string)__('Confirm Link to Customer Account'));
             $resultPage->getConfig()->getTitle()->prepend(
                 (string)__('Order #%1', $order->getIncrementId())
             );

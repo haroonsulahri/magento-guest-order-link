@@ -99,7 +99,7 @@ The package constraints begin with Magento 2.4.4-era component versions and cont
 2. Open an unassigned guest order.
 3. Click **Link to Customer Account** next to **Edit**.
 4. Check the order and matched account on the confirmation page.
-5. Click **Link Guest Order to Customer**.
+5. Click **Link to Customer Account**.
 6. Confirm the order is assigned to the customer. If the order status is storefront-visible, confirm it also appears under **My Account > My Orders**.
 
 Grant access under:
