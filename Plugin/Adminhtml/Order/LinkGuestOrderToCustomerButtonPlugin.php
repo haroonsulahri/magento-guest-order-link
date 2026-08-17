@@ -60,7 +60,7 @@ class LinkGuestOrderToCustomerButtonPlugin
             'haroone_link_guest_order_to_customer',
             [
                 'id' => 'haroone-link-guest-order-to-customer',
-                'label' => __('Link Guest Order to Customer'),
+                'label' => __('Link to Customer Account'),
                 'class' => 'link',
                 'onclick' => "setLocation('" . $this->escaper->escapeJs($url) . "')",
             ],

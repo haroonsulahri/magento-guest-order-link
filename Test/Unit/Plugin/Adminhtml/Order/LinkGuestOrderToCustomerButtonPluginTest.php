@@ -57,7 +57,7 @@ class LinkGuestOrderToCustomerButtonPluginTest extends TestCase
                 'haroone_link_guest_order_to_customer',
                 self::callback(static function (array $data): bool {
                     return $data['id'] === 'haroone-link-guest-order-to-customer'
-                        && (string)$data['label'] === 'Link Guest Order to Customer'
+                        && (string)$data['label'] === 'Link to Customer Account'
                         && $data['onclick'] === "setLocation('https://admin/link')";
                 }),
                 1,

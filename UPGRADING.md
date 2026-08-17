@@ -67,7 +67,7 @@ bin/magento cache:clean
 - Re-grant **Sales > Operations > Orders > Actions > Link Guest Order to Customer** to restricted Admin roles. The ACL resource ID changed, so a role that explicitly held the legacy permission does not inherit the new permission automatically.
 - Update custom integrations, tests or preferences that reference the legacy PHP namespace, route or ACL resource.
 - Confirm only `Haroone_LinkGuestOrderToCustomer` is enabled.
-- Open an eligible guest order and confirm the **Link Guest Order to Customer** action appears immediately before **Edit**.
+- Open an eligible guest order and confirm the **Link to Customer Account** action appears immediately before **Edit**.
 - Confirm ineligible and already-assigned orders do not show the action.
 
 No schema or data migration is required. The extension has no custom database tables, and existing order-to-customer assignments remain Magento sales data. Magento may retain the disabled legacy module entry in `setup_module`; it does not need to be deleted.

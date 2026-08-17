@@ -4,9 +4,15 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-08-17
+
 ### Added
 
 - Automated GitHub release creation and verified ZIP upload for release tags.
+
+### Changed
+
+- Shortened the eligible Admin order action label to **Link to Customer Account**.
 
 ## [1.0.1] - 2026-08-13
 

@@ -58,7 +58,7 @@ This module gives an authorized Admin user a controlled way to link one guest or
 
 ## What it does
 
-- Adds **Link Guest Order to Customer** immediately before **Edit** on an eligible Admin order.
+- Adds **Link to Customer Account** immediately before **Edit** on an eligible Admin order.
 - Shows the action only when an exact account-email match exists in the applicable customer-sharing scope.
 - Displays a confirmation page before anything is changed.
 - Revalidates the order and customer immediately before saving.
@@ -97,7 +97,7 @@ The package constraints begin with Magento 2.4.4-era component versions and cont
 
 1. Open **Sales > Orders**.
 2. Open an unassigned guest order.
-3. Click **Link Guest Order to Customer** next to **Edit**.
+3. Click **Link to Customer Account** next to **Edit**.
 4. Check the order and matched account on the confirmation page.
 5. Click **Link Guest Order to Customer**.
 6. Confirm the order is assigned to the customer. If the order status is storefront-visible, confirm it also appears under **My Account > My Orders**.
